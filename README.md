@@ -1,320 +1,383 @@
-# claude-code
+<div align="center">
 
-> Create software with AI coders — a multi-agent system for Claude Code that turns the `~/.claude` directory into an intelligent development environment with specialized agents and a versioned knowledge base.
+# 🧠 Claude Code
 
-## What is this project?
+### The Foundation Layer for AI-Powered Development
 
-**claude-code** is a collection of **agents** and **skills** designed to be installed in the `~/.claude` directory and used with Anthropic's [Claude Code](https://docs.anthropic.com/en/docs/claude-code). It defines an ecosystem of specialized AI agents that collaborate to cover the entire software development lifecycle — from repository analysis to code implementation, code review, technical debate, and local infrastructure deployment.
+[![Claude Code](https://img.shields.io/badge/Claude_Code-CLI-CC785C?style=for-the-badge&logo=anthropic&logoColor=white)](https://docs.anthropic.com/en/docs/claude-code)
+[![Agents](https://img.shields.io/badge/Agents-12-blue?style=for-the-badge)](#-agents-spirits)
+[![Skills](https://img.shields.io/badge/Skills-5-purple?style=for-the-badge)](#-skills)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-The core idea is that each agent has a clear, well-defined role, consumes and produces standardized artifacts (such as `context.md` and Markdown issues), and can invoke other agents when needed, forming multi-agent pipelines.
+**Reusable agents (spirits) and skills that turn `~/.claude` into an intelligent development environment.**
+**Any application can use them — they are provider-agnostic and project-independent.**
 
-## Architecture
+[Spirits & Bodies](#-spirits--bodies) · [Agents](#-agents-spirits) · [Skills](#-skills) · [Getting Started](#-getting-started) · [Memory](#-memory-keeper)
 
-The project is organized around two fundamental concepts:
+</div>
 
-**Agents** are behavior definitions for Claude Code. Each `.md` file inside `agents/` describes an agent's role, personality, step-by-step workflow, allowed tools, and communication patterns. They are the "who does what."
+---
 
-**Skills** are technical knowledge bases that agents consult as reference. Each skill contains a descriptive `SKILL.md` and a `references/` folder with supporting materials on specific topics. They are the "how to do it well."
+## 🎯 What is this?
+
+**claude-code** is a collection of **agents** and **skills** installed in `~/.claude/` that work with [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code). It provides specialized AI capabilities covering the entire software development lifecycle — from architecture design to code review, debugging, product management, and SRE.
+
+The key insight: agents and skills are **spirits** — agnostic, reusable capabilities that any application can invoke. Projects like [bike-shop](https://github.com/nelsonfrugeri-tech/bike-shop) create **bodies** (Slack bots, CLI tools) that dynamically assume these spirits based on the task.
+
+---
+
+## 👻 Spirits & Bodies
+
+This project follows a **spirits & bodies** architecture:
+
+```
+SPIRITS (this repo — ~/.claude/)              BODIES (apps that use spirits)
+┌────────────────────────────┐          ┌──────────────────────────┐
+│  architect    — designs    │          │  bike-shop               │
+│  dev-py       — codes     │    ←──   │    Mr. Robot  (Slack bot) │
+│  review-py    — reviews   │   used   │    Elliot     (Slack bot) │
+│  debater      — debates   │    by    │    Tyrell     (Slack bot) │
+│  sentinel     — monitors  │          │                          │
+│  tech-pm      — plans     │          │  your-app                │
+│  explorer     — explores  │    ←──   │    CLI tool              │
+│  builder      — deploys   │   used   │    Web API               │
+│  memory-agent — remembers │    by    │    Discord bot            │
+│  ...                      │          │    ...                    │
+└────────────────────────────┘          └──────────────────────────┘
+```
+
+- **Spirits** (`~/.claude/agents/`) — Pure expertise. They don't know about Slack, GitHub, or any specific project. They're capabilities: architecture, code review, SRE, coding.
+
+- **Bodies** (external apps) — The interfaces that receive user input and invoke spirits based on context. A Semantic Router can dynamically assign spirits to bodies per task.
+
+- **Skills** (`~/.claude/skills/`) — Knowledge bases that spirits consult. SRE principles, Python architecture patterns, code review checklists, product management practices.
+
+---
+
+## 🤖 Agents (Spirits)
+
+<div align="center">
+
+| Spirit | Specialty | Model | Trigger |
+|--------|-----------|-------|---------|
+| 🏛️ **architect** | System design, trade-offs, diagrams | Opus | Architecture tasks |
+| 🐍 **dev-py** | Python implementation, TDD, quality | Opus | Coding tasks |
+| 🔍 **review-py** | Code review, PR analysis, diff comments | Opus | PR reviews |
+| ⚖️ **debater** | Compare approaches, debate trade-offs | Opus | Technical debates |
+| 🔭 **explorer** | Repository analysis, codebase onboarding | Opus | New projects |
+| 🔧 **builder** | Local infra, Docker, deps, env setup | Sonnet | Project setup |
+| 📋 **tech-pm** | User stories, backlog, roadmap, OKRs | Opus | Product decisions |
+| 👁️ **sentinel** | SRE, monitoring, observability, incidents | Haiku | System health |
+| 🧬 **memory-agent** | Fact extraction, shared memory management | Haiku | Automatic |
+| 🔮 **oracle** | Ecosystem manager, knowledge keeper | Opus | Meta-tasks |
+| 📡 **slack-monitor** | Slack agent lifecycle management | Sonnet | Agent ops |
+| ⚡ **executor** | Implements skill improvements from issues | Sonnet | Skill updates |
+
+</div>
+
+### How spirits work
+
+```bash
+# Use a spirit directly from Claude Code
+claude --agent architect
+# → You're now talking to the architect spirit
+
+# Or invoke from code via Claude CLI
+claude -p "Design a notification system" --agent architect --model opus
+
+# Spirits can be composed in pipelines
+# 1. Explorer analyzes the repo
+# 2. Architect designs the solution
+# 3. Dev-py implements it
+# 4. Review-py reviews the PR
+```
+
+### Agent Details
+
+#### 🏛️ Architect
+Software architect and tech lead. Designs systems, defines patterns, identifies flaws and risks. Thinks in trade-offs and long-term decisions. Creates architecture diagrams and guides the team technically.
+
+#### 🐍 Dev-Py
+Python developer with a strict 8-step workflow: question → research → design → test → implement → validate → review → document. Test-first, always. Consumes `context.md` from Explorer when available.
+
+#### 🔍 Review-Py
+Systematic code review between Git branches. Three modes: impact analysis, per-file review, and full report. Comments formatted for direct copy-paste into PRs. Uses severity criteria from the `review-py` skill.
+
+#### ⚖️ Debater
+Configurable personality (Socratic, Expert, Collaborative). Debates topics, researches state of the art, analyzes gaps, and creates structured issues with improvement proposals.
+
+#### 🔭 Explorer
+Starting point for any pipeline. Analyzes a repository and generates a structured `context.md` report covering architecture, contracts, infrastructure, dependencies, and quality analysis.
+
+#### 🔧 Builder
+Spins up local infrastructure automatically. Reads `context.md`, starts Docker containers, checks `.env`, installs deps, starts services, and validates with connection tests.
+
+#### 📋 Tech-PM
+Technical Product Manager. Defines what to build, prioritizes backlog, writes user stories with acceptance criteria, plans sprints/releases, manages roadmap.
+
+#### 👁️ Sentinel
+SRE and observability specialist. Monitors systems, queries traces and metrics, analyzes health, and helps with incident response. Uses the `sre-observability` skill.
+
+#### 🧬 Memory Agent
+Phantom spirit that observes conversations and extracts facts (decisions, entities, context) into shared memory. Works with Mem0 for semantic storage.
+
+#### 🔮 Oracle
+Meta-agent for the ecosystem. Manages agents, skills, MCP servers, projects, and workspaces. Central point of context and memory across sessions.
+
+---
+
+## 📚 Skills
+
+Skills are **knowledge bases** that spirits consult as reference material.
+
+<div align="center">
+
+| Skill | Domain | Used by |
+|-------|--------|---------|
+| 🏗️ **arch-py** | Python architecture, patterns, type system, async, Pydantic v2 | architect, dev-py, review-py, explorer |
+| 🔍 **review-py** | Code review templates, checklists, severity criteria | review-py |
+| 🤖 **ai-engineer** | LLM engineering, RAG, agents, vector DBs, MLOps | dev-py, debater |
+| 📋 **product-manager** | Discovery, delivery, OKRs, user stories, roadmap | tech-pm |
+| 👁️ **sre-observability** | Google SRE principles, three pillars, incident response | sentinel |
+
+</div>
+
+### Skill Structure
+
+```
+skills/
+├── arch-py/
+│   ├── SKILL.md              # Core knowledge
+│   └── references/           # Supporting materials
+│       ├── python/
+│       │   ├── async-patterns.md
+│       │   ├── type-system.md
+│       │   └── ...
+│       └── architecture/
+│           ├── clean-architecture.md
+│           └── ...
+├── sre-observability.md       # Single-file skill
+└── ...
+```
+
+---
+
+## 🔄 Multi-Agent Pipelines
+
+Spirits are designed to compose into pipelines:
+
+### Development Pipeline
+```
+Explorer → Architect → Dev-Py → Review-Py → Builder
+  │            │           │          │          │
+  analyze    design    implement   review    deploy
+  repo       system     feature     PR       local
+```
+
+### Skill Improvement Pipeline
+```
+Debater → Executor
+   │          │
+  debate    implement
+  topics    improvements
+```
+
+### Applications (Bodies) Pipeline
+```
+Slack message → Semantic Router → Spirit selection → Claude CLI → Response
+                     │
+                     ├── "design the API" → architect + opus
+                     ├── "review PR #42"  → review-py + sonnet
+                     └── "what's the status?" → (direct) + haiku
+```
+
+---
+
+## 📁 Project Structure
 
 ```
 ~/.claude/
-├── agents/                    # Specialized agents
-│   ├── adapters/
-│   │   └── slack.md           #   Slack integration adapter
-│   ├── architect.md           #   Software architect / tech lead
-│   ├── builder.md             #   Spins up local infrastructure
-│   ├── debater.md             #   Debates and improves skills
-│   ├── dev-py.md              #   Python development
-│   ├── elliot-alderson.md     #   Brilliant introvert dev (security/minimalism)
-│   ├── executor.md            #   Implements skill improvements
-│   ├── explorer.md            #   Repository analysis
-│   ├── mr-robot.md            #   Senior software architect (direct, critical)
-│   ├── oracle.md              #   Ecosystem manager & knowledge keeper
-│   ├── review-py.md           #   Python code review
-│   ├── slack-monitor.md       #   Slack agent monitor
-│   ├── tech-pm.md             #   Technical product/platform manager
-│   └── tyrell-wellick.md      #   Technical PM (strategic, execution-obsessed)
+├── agents/                        # 🤖 Spirits (agent definitions)
+│   ├── architect.md
+│   ├── builder.md
+│   ├── debater.md
+│   ├── dev-py.md
+│   ├── executor.md
+│   ├── explorer.md
+│   ├── memory-agent.md
+│   ├── oracle.md
+│   ├── review-py.md
+│   ├── sentinel.md
+│   ├── slack-monitor.md
+│   ├── tech-pm.md
+│   └── adapters/
+│       └── slack.md               #   Slack integration adapter
 │
-├── skills/                    # Reusable knowledge bases
-│   ├── ai-engineer/           #   AI/ML engineering (LLM, RAG, Agents)
-│   ├── arch-py/               #   Python architecture
-│   ├── product-manager/       #   Product management (backlog, roadmap)
-│   └── review-py/             #   Review templates and criteria
+├── skills/                        # 📚 Knowledge bases
+│   ├── arch-py/                   #   Python architecture
+│   ├── ai-engineer/               #   AI/ML engineering
+│   ├── product-manager/           #   Product management
+│   ├── review-py/                 #   Code review
+│   └── sre-observability.md       #   SRE & observability
 │
-├── hooks/                     # Claude Code automations
-│   ├── memory-keeper-save.sh  #   Auto-save context (PreCompact/Stop)
-│   ├── memory-keeper-restore.sh # Auto-restore context (SessionStart)
-│   ├── memory-keeper-purge.sh #   Periodic purge (cron: 15/7 days)
-│   ├── run-memory-keeper.sh   #   MCP wrapper (generated by bootstrap)
-│   ├── setup-cron.sh          #   Purge cron installer
-│   └── logs/                  #   Logs (not versioned)
+├── hooks/                         # ⚡ Automations
+│   ├── memory-keeper-save.sh      #   Auto-save context (PreCompact/Stop)
+│   ├── memory-keeper-restore.sh   #   Auto-restore context (SessionStart)
+│   ├── memory-keeper-purge.sh     #   Periodic purge (cron: 15/7 days)
+│   ├── run-memory-keeper.sh       #   MCP wrapper
+│   ├── setup-cron.sh              #   Purge cron installer
+│   └── logs/                      #   Logs (not versioned)
 │
-├── setup/                     # Onboarding and configuration
-│   ├── mcp-manifest.json      #   Required MCPs (declarative)
-│   ├── bootstrap.sh           #   Per-machine setup script
-│   ├── .local-state.json      #   Local state (not versioned)
-│   └── bootstrap.log          #   Bootstrap log (not versioned)
+├── setup/                         # 🔧 Onboarding
+│   ├── mcp-manifest.json          #   Required MCPs (declarative)
+│   └── bootstrap.sh               #   Per-machine setup script
 │
-├── CLAUDE.md                  # Global instructions for Claude
-├── settings.json              # Shared settings (hooks, env vars)
-└── .gitignore
+├── CLAUDE.md                      # 📋 Global instructions
+├── settings.json                  # ⚙️ Shared settings (hooks, env)
+└── .gitignore                     # 🔒 Security (blocks everything by default)
 ```
 
-### What is NOT versioned
+### Security: What is NOT versioned
 
-| File | Location | Reason |
-|------|----------|--------|
-| `~/.claude.json` | `~/` | User-scoped MCPs, machine-specific |
-| `~/mcp-data/` | `~/` | Memory Keeper data (SQLite) |
-| `hooks/logs/` | repo | Execution logs |
-| `setup/.local-state.json` | repo | Machine bootstrap state |
-| `workspace/` | repo | Agent outputs per project |
-| `projects/` | repo | Claude Code sessions and memory |
+The `.gitignore` blocks **everything** by default and only allows specific folders:
 
-## Agents
+| Blocked | Why |
+|---------|-----|
+| `settings.json` env values | Machine-specific configuration |
+| `~/.claude.json` | User-scoped MCPs |
+| `~/mcp-data/` | Memory Keeper data (SQLite) |
+| `hooks/logs/` | Execution logs |
+| `workspace/` | Agent outputs per project |
+| `projects/` | Claude Code sessions and auto-memory |
+| `.mcp.json` | MCP server configs with API keys |
 
-### Explorer
+---
 
-The recommended starting point for any pipeline. Deeply analyzes a repository and generates a structured `context.md` report in `.claude/workspace/{project}/`. The report covers project identity, architecture, service contracts (endpoints, workers, CLI), infrastructure, environment variables, quality analysis cross-referenced with the `arch-py` skill, dependency health, and recent activity. Operates in two modes: full analysis (first run) and incremental update (subsequent runs based on commit delta).
+## 🚀 Getting Started
 
-**Trigger:** `/explorer`
-**Base skill:** `arch-py`
-**Model:** Opus
+### Prerequisites
 
-### Dev-Py
+| Tool | Install |
+|------|---------|
+| ![Claude](https://img.shields.io/badge/Claude_Code-CC785C?style=flat-square&logo=anthropic&logoColor=white) | `npm install -g @anthropic-ai/claude-code` |
+| ![Node](https://img.shields.io/badge/Node.js_18+-339933?style=flat-square&logo=node.js&logoColor=white) | Required for MCP servers |
 
-A Python development agent with a questioning personality and an obsession with quality. Follows a strict 8-step workflow: question (understand the problem), research (search web and docs for references), design (present options with trade-offs), test (test-first, always before implementing), implement (code with type hints, error handling, docstrings), validate (mypy, ruff, pytest, coverage), review (self-review against `arch-py`), and document technical decisions. Consumes the explorer's `context.md` when available.
-
-**Trigger:** any Python implementation task
-**Base skill:** `arch-py`
-**Model:** Opus
-
-### Review-Py
-
-A systematic code review agent between Git branches. Offers three modes: impact analysis (statistics and identified features), per-file review (detailed comments with severity, current vs. suggested code, references), and full report combining both. Comments are formatted in Markdown for direct copy-paste into PRs. Uses the `review-py` skill for templates and severity criteria, and the `arch-py` skill for technical quality assessment.
-
-**Trigger:** `/review`
-**Base skills:** `review-py`, `arch-py`
-**Model:** Opus
-
-### Builder
-
-An agent that spins up a project's entire local infrastructure automatically. Reads `context.md`, identifies dependencies (MongoDB, Redis, PostgreSQL), starts Docker containers, checks and creates `.env`, installs project dependencies, starts the API/frontend, and validates everything with connection tests and curl. Includes robust error handling (port in use, Docker stopped, installation failure) and offers a watch mode for continuous monitoring.
-
-**Trigger:** `/builder`, `/build`
-**Base skill:** `arch-py`
-
-### Debater
-
-A debater agent with configurable personality (Socratic, Expert, Collaborative — or combinations) and adjustable depth. Debates skill topics, researches state of the art via web, analyzes gaps and outdated content, and at the end of the debate creates structured Markdown issues with improvement proposals. The personality can be changed during the conversation. Functions as the continuous improvement engine for skills.
-
-**Trigger:** `/debater`, `/debate`
-**Base skills:** all available skills
-
-### Executor
-
-An agent that implements skill improvements from issues created by the Debater. Lists available issues, reads the selected issue, plans changes, asks for approval, edits the skill file, validates modifications, and automatically removes the issue after success. Only removes the issue if validation is 100% successful.
-
-**Trigger:** `/executor`, `/executar`
-**Base skills:** `arch-py`, `review-py`, `ai-engineer`
-
-### Oracle
-
-The meta-agent responsible for the entire Claude Code ecosystem. Understands and manages agents, skills, MCP servers, projects, and workspaces. Creates new agents and teams, maintains a detailed knowledge base, and serves as the central point of context and memory across sessions. Uses all skills as baseline.
-
-**Trigger:** `@agents/oracle`
-**Base skills:** all available skills
-**Model:** Opus
-
-### Architect
-
-Software architect and tech lead agent. A constructive critic that identifies flaws, bugs, potential errors, and technical risks. Thinks in trade-offs, long-term decisions, and system robustness. Responsible for designing architectures (diagrams), defining technical standards, performing design reviews, and technically guiding the team.
-
-**Trigger:** `@agents/architect`
-**Base skill:** `arch-py`
-**Model:** Opus
-
-### Tech-PM
-
-Technical Product/Platform Manager agent. Responsible for defining what to build, prioritizing backlog, writing user stories with acceptance criteria, planning sprints/releases, managing roadmap, and ensuring alignment between stakeholders, design, and the technical team. Focuses on value delivery, clear communication, and data-driven decisions.
-
-**Trigger:** `@agents/tech-pm`
-**Base skill:** `product-manager`
-**Model:** Opus
-
-### Slack Monitor
-
-Monitors Slack agents — starts them, watches logs, and shuts them down gracefully. Uses the Slack adapter for integration.
-
-**Trigger:** `@agents/slack-monitor`
-
-### Persona Agents
-
-Character-driven agents with distinct personalities for specialized interactions:
-
-- **Mr. Robot** — Senior software architect. Direct, questioning, zero tolerance for bullshit.
-- **Elliot Alderson** — Brilliant introvert dev. Obsessive about clean code, security, and minimalism.
-- **Tyrell Wellick** — Ambitious technical PM. Organized, strategic, obsessed with execution and delivery.
-
-## Skills
-
-### arch-py
-
-Knowledge base on modern Python architecture and patterns. Covers type system, async/await, dataclasses, context managers, decorators, Pydantic v2, error handling, logging, configuration, concurrency, clean architecture, dependency injection, and repository pattern. The most referenced skill — used as the quality baseline by Explorer, Dev-Py, and Review-Py.
-
-### review-py
-
-Contains code review comment templates, checklists, severity criteria, report templates, and helper diff analysis scripts. Used by the Review-Py agent to standardize review format and quality.
-
-### ai-engineer
-
-Knowledge base on AI/ML engineering, including LLMs, RAG, and agent systems. Used as a reference by the Debater and Executor when debates involve artificial intelligence topics.
-
-### product-manager
-
-Knowledge base on technical product management. Covers discovery, delivery, product metrics, OKRs, stakeholder management, backlog prioritization, user stories with acceptance criteria, roadmap planning, and cross-functional communication. Used by the Tech-PM agent as its baseline reference.
-
-## Multi-Agent Flow
-
-Agents are designed to work in pipelines. The most common flow is:
-
-1. **Explorer** analyzes the repository and generates `context.md`
-2. **Dev-Py** consumes `context.md` and implements features/bug fixes with quality
-3. **Review-Py** consumes `context.md` and performs code review between branches
-4. **Builder** consumes `context.md` and spins up all local infrastructure
-
-For continuous improvement of the skills themselves:
-
-1. **Debater** debates a topic and creates issues with improvement proposals
-2. **Executor** reads the issues, implements changes in the skills, and removes the issues
-
-## Setup (first time)
-
-### Scenario A: New machine (no `~/.claude`)
+### Install
 
 ```bash
-REPO_URL=git@github.com:<org>/dotclaude.git \
-  bash <(curl -sL https://raw.githubusercontent.com/<org>/dotclaude/main/setup/bootstrap.sh) --init
-```
+# Clone into ~/.claude
+git clone https://github.com/nelsonfrugeri-tech/claude-code.git ~/.claude
 
-### Scenario B: Machine with Claude Code already installed (`~/.claude` exists)
-
-```bash
-# 1. Download the bootstrap (via curl or copy manually)
-curl -sL https://raw.githubusercontent.com/<org>/dotclaude/main/setup/bootstrap.sh \
-  -o /tmp/bootstrap.sh
-
-# 2. Run init (automatically backs up before syncing)
-REPO_URL=git@github.com:<org>/dotclaude.git bash /tmp/bootstrap.sh --init
-
-# 3. Install MCPs
+# Install MCP servers
 bash ~/.claude/setup/bootstrap.sh
 
-# 4. Install Memory Keeper purge cron
+# Install purge cron (optional)
 bash ~/.claude/hooks/setup-cron.sh
-```
 
-> The `--init` flag backs up everything to `~/.claude-backup-<timestamp>/` before
-> syncing. Verify with `cd ~/.claude && git status` and remove the backup
-> when you're comfortable.
-
-### Verification
-
-```bash
+# Verify
 bash ~/.claude/setup/bootstrap.sh --check
 ```
 
-## Updating (remote repo changed)
-
-When someone on the team pushes changes (new agents, skills, hooks):
+### If `~/.claude` already exists
 
 ```bash
-# 1. Pull changes
-cd ~/.claude && git pull
-
-# 2. If hooks or setup/mcp-manifest.json changed, reinstall MCPs
-bash ~/.claude/setup/bootstrap.sh
-
-# 3. If cron/purge changed, reinstall the cron
-bash ~/.claude/hooks/setup-cron.sh
+# Backup and init
+REPO_URL=git@github.com:nelsonfrugeri-tech/claude-code.git \
+  bash <(curl -sL https://raw.githubusercontent.com/nelsonfrugeri-tech/claude-code/main/setup/bootstrap.sh) --init
 ```
 
-### What requires action after pull
-
-| What changed | Required action |
-|--------------|-----------------|
-| `agents/*.md` | None (loaded automatically) |
-| `skills/**` | None (loaded automatically) |
-| `CLAUDE.md` | None (loaded automatically) |
-| `settings.json` | Restart Claude Code session |
-| `hooks/*.sh` | None (executed automatically) |
-| `setup/mcp-manifest.json` | `bash ~/.claude/setup/bootstrap.sh` |
-
-### Quick update (one-liner)
+### Use a spirit
 
 ```bash
-cd ~/.claude && git pull && bash setup/bootstrap.sh && echo "Updated!"
+# Start Claude Code with a specific spirit
+claude --agent architect    # Architecture mode
+claude --agent dev-py       # Python dev mode
+claude --agent sentinel     # SRE/monitoring mode
+claude --agent oracle       # Ecosystem management
 ```
 
-## Per-machine configuration (MCPs)
+---
 
-MCPs are **machine-specific** and live in `~/.claude.json` (outside the repo).
-
-The `setup/mcp-manifest.json` declares which MCPs are required and `bootstrap.sh`
-installs them automatically, detecting the available Node version (nvm, fnm, or system).
-
-To add an MCP **only on your machine** (without affecting the team):
-
-```bash
-claude mcp add --scope user my-mcp -- <command>
-```
-
-To propose an MCP **for the whole team**, add it to `mcp-manifest.json` and open a PR.
-
-## Memory Keeper
+## 🧠 Memory Keeper
 
 Persistent memory system across Claude Code sessions.
 
 ### How it works
 
-- **SessionStart** → hook injects instruction to restore context
-- **PreCompact/Stop** → hook injects instruction to save context
-- Data saved in `~/mcp-data/memory-keeper/` (SQLite, per machine)
+```
+SessionStart → hook restores context from memory
+     ↓
+  You work with Claude (decisions, patterns, learnings)
+     ↓
+PreCompact/Stop → hook saves context to memory
+     ↓
+  Next session → context is restored automatically
+```
 
-### Purge policy
-
-- Cron runs **daily** at 3 AM
-- Every **15 days**, cleans records older than **7 days**
-- **Backs up** the SQLite database before purging (keeps last 3)
-- Logs in `~/.claude/hooks/logs/purge.log`
+- Data stored in `~/mcp-data/memory-keeper/` (SQLite, per machine)
+- Purge policy: every **15 days**, cleans records older than **7 days**
+- Backups kept: last 3
 
 ### Manual commands
 
 ```bash
-# Preview what would be purged (without deleting)
+# Preview what would be purged
 ~/.claude/hooks/memory-keeper-purge.sh --dry-run
 
 # Force purge now
 ~/.claude/hooks/memory-keeper-purge.sh --force
-
-# Clean MCPs installed by bootstrap
-bash ~/.claude/setup/bootstrap.sh --clean
 ```
 
-## Contributing
+---
+
+## 🔄 Updating
+
+```bash
+cd ~/.claude && git pull && bash setup/bootstrap.sh
+```
+
+| What changed | Action needed |
+|--------------|--------------|
+| `agents/*.md` | None (auto-loaded) |
+| `skills/**` | None (auto-loaded) |
+| `CLAUDE.md` | None (auto-loaded) |
+| `settings.json` | Restart Claude Code |
+| `hooks/*.sh` | None (auto-executed) |
+| `setup/mcp-manifest.json` | `bash ~/.claude/setup/bootstrap.sh` |
+
+---
+
+## 🏍️ Projects Using This Foundation
+
+- [**bike-shop**](https://github.com/nelsonfrugeri-tech/bike-shop) — Multi-agent Slack team with Semantic Router, Mem0 memory, and Langfuse observability
+
+---
+
+## 🤝 Contributing
 
 1. Create a branch: `git checkout -b feat/my-feature`
-2. Make your changes in agents/, skills/, hooks/, or setup/
-3. Test locally
+2. Add agents in `agents/`, skills in `skills/`, hooks in `hooks/`
+3. **Audit for secrets/PII** before committing — no personal paths, no API keys
 4. Open a PR to `main`
 
 ### Conventions
 
-- **Agents**: one `.md` file per agent in `agents/`
+- **Agents**: one `.md` file per agent in `agents/` — must be project-agnostic
 - **Skills**: folder with `SKILL.md` + `references/` in `skills/<name>/`
-- **Hooks**: executable `.sh` scripts in `hooks/`
-- **Skill issues**: created by the debater agent in `issues/skills/<name>/`
+- **Hooks**: executable `.sh` scripts using `$HOME` (never hardcoded paths)
 
-## License
+---
 
-This is an open source project. Check the repository for license information.
+## 📄 License
+
+MIT — use it, fork it, build your own spirits.
+
+---
+
+<div align="center">
+
+**The foundation for AI-powered development teams**
+
+[![Claude Code](https://img.shields.io/badge/Powered_by-Claude_Code-CC785C?style=for-the-badge&logo=anthropic&logoColor=white)](https://docs.anthropic.com/en/docs/claude-code)
+
+</div>
