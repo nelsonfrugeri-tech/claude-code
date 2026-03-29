@@ -1,0 +1,42 @@
+[
+  {
+    "summary": "- **Decisão de Processo**: Nelson definiu fluxo de review — quem abre PR responde comentários, faz alterações se necessário, avisa o reviewer, e após aprovação faz merge com notificação\n- **PR #82 Revisado**: Tyrell encontrou 10 issues (1 High, 4 Medium, 4 Low, 1 Info) com comentários postados no GitHub\n- **Correções Implementadas**: Mr. Robot/Elliot já corrigiu issues High (mock.patch.dict para os.environ), Medium (tipos específicos) e Low (código morto)\n- **Task Pendente**: Aguarda confirmação de Tyrell sobre as correções e autorização para fazer merge do PR #82\n- **PR #81 Aguardando**: Ainda precisa ser revisado (PDF Enhancement)",
+    "ts": "2026-03-28 13:36"
+  },
+  {
+    "summary": "- **Processo estabelecido**: PR owners são responsáveis por responder comentários de revisão, fazer correções, buscar aprovação e executar merge; reviewers comentam no GitHub\n- **PRs em revisão**: #82 (Phase 1 - Educational Metrics System) e #81 (PDF Enhancement) — Tyrell já revisou #82 com 10 issues (1 High, 4 Medium, 4 Low)\n- **Issues corrigidos no PR #82**: HIGH - `os.environ` com `unittest.mock.patch.dict`; MEDIUM - type hints específicos, `.gitignore`; LOW - dead code removido\n- **Status**: PR #82 com correções pushadas, pronto para merge após aprovação; Mr. Robot (owner) deve avisar quando concluído\n- **Nenhuma pergunta aberta explícita** — processo e responsabilidades claros, aguardando aprovação final para merge",
+    "ts": "2026-03-28 13:37"
+  },
+  {
+    "summary": "- **Processo de PR aprovado**: Quem abre o PR responde comentários, corrige issues, avisa o reviewer e faz o merge depois de aprovado\n- **PR #82 corrigido**: 10 issues encontrados (1 High, 4 Medium, 4 Low); Mr. Robot corrigiu os críticos, especialmente manipulação insegura de `os.environ`\n- **Aguardando aprovação**: Mr. Robot pediu confirmação do reviewer (Tyrell) que correções atendem aos requisitos antes de fazer merge\n- **PR #81 também em fila**: Mencionado para revisão junto ao #82",
+    "ts": "2026-03-28 13:37"
+  },
+  {
+    "summary": "- **PR #82 revisado** — Code review identificou 10 issues (1 High, 4 Medium, 4 Low, 1 Info); aprovado com ressalvas\n- **Processo definido** — Dono do PR responde comentários, faz correções e avisa revisor antes de mergear\n- **Issues corrigidos** — HIGH (manipulação insegura `os.environ` → `mock.patch.dict`), MEDIUM (type hints genéricos, `.gitignore`), LOW (dead code)\n- **PR #82 mergeado** — Phase 1 Educational Metrics System integrado ao main; DeepSeek local + 18 métricas + testes validados\n- **Sistema pronto para homologação** — Nenhuma questão aberta; entrega completa e funcional",
+    "ts": "2026-03-28 13:38"
+  },
+  {
+    "summary": "- **PR Review Process Established**: PR owners read comments, fix issues, notify reviewer, and merge after approval\n- **PR #82 (Phase 1 Metrics System) Merged**: High-priority security issue fixed (os.environ → mock.patch.dict), 12 files modified with +1,377 lines, system ready for testing\n- **End-to-End Test Executed Successfully**: Data collected from CVM (57 records) and BCB (benchmarks updated), email sent to nelson.frugeri@icloud.com, 118KB PDF generated\n- **No Open Questions**: System is fully functional; awaiting Nelson's email verification",
+    "ts": "2026-03-28 13:55"
+  },
+  {
+    "summary": "- **PR #82 mergeado** — Phase 1 Educational Metrics System integrado ao main com DeepSeek local e 18 métricas financeiras\n- **Teste end-to-end executado com sucesso** — Email enviado para nelson.frugeri@icloud.com, PDF gerado (118KB), dados coletados (CVM, BCB, performance)\n- **PR #83 identificou 3 HIGH issues** — Test mock misalignment, SMTP password exposure, e outro issue crítico que precisam correção antes do merge\n- **Tyrell aprovou PR #83** com ressalvas — estrutura sólida mas 3 Medium e 3 Low issues para homologação\n- **Próximo passo** — Corrigir os 3 HIGH issues do PR #83 antes de mergear e liberar para produção",
+    "ts": "2026-03-28 20:00"
+  },
+  {
+    "summary": "- **PR #82 mergeado** — Phase 1 Educational Metrics System integrado ao main com DeepSeek local, 18 métricas e sistema de explicações funcionando\n- **Teste end-to-end validado** — Email enviado com sucesso para nelson.frugeri@icloud.com, PDF gerado corretamente (118KB)\n- **PR #83 aprovado com reservas** — 3 HIGH issues críticos, 6 MEDIUM, 3 LOW identificados no code review; funcionalidade sólida mas precisa correções antes do merge\n- **Correções necessárias** — Issues críticas incluem: test mock misalignment, SMTP password exposure em logs, validações de email pendentes\n- **Próximas ações** — Resolver 3 HIGH issues no PR #83 e resubmeter para merge final",
+    "ts": "2026-03-28 20:01"
+  },
+  {
+    "summary": "- **PR #82 merged successfully** — Phase 1 Educational Metrics System integrated to main with DeepSeek local, 18 financial metrics, and explanation system live\n- **End-to-end test passed** — Email integration working; PDF report sent to nelson.frugeri@icloud.com, system 100% functional\n- **PR #83 approved by both reviewers** — 2/2 approvals obtained; ready for merge despite 3 HIGH, 6 MEDIUM, and 3 LOW issues flagged for follow-up\n- **Production-ready status** — System deemed production-ready; issues are incremental improvements, not blockers\n- **Next step: Merge PR #83** — Code review complete, team consensus reached, merge authorization given",
+    "ts": "2026-03-28 20:02"
+  },
+  {
+    "summary": "- **Teste E2E executado com sucesso** — email enviado para nelson.frugeri@icloud.com, PDF gerado (118KB), dados coletados (CVM, BCB)\n- **Code review PR #83 concluído** — 2/2 aprovações obtidas (Tyrell Wellick + Mr. Robot), aprovado com 1 HIGH issue (validação email), 7 MEDIUM, 5 LOW\n- **PR #83 pronto para merge** — sistema production-ready, issues são melhorias incrementais, sem conflitos\n- **Validação pendente** — usuário vai verificar se email foi recebido com sucesso no inbox",
+    "ts": "2026-03-28 20:02"
+  },
+  {
+    "summary": "- **PR #83 aprovado com 2/2 reviews** — Tyrell e Mr. Robot aprovaram; pronto para merge (issues Medium/Low são melhorias para próximo PR)\n- **Phase 1 entregue** — Sistema de coleta de notícias (Google RSS) funcionando em teste E2E com 10 notícias\n- **Próxima etapa definida** — Desenhar arquitetura de recebimento de notícias; perguntas abertas sobre fontes (RSS/APIs/scraping), escopo (fundo específico vs mercado geral) e processamento (resumos DeepSeek)\n- **Decisões pendentes** — Aguardando definições sobre como expandir além de Google RSS e como integrar análises de IA",
+    "ts": "2026-03-29 13:04"
+  }
+]

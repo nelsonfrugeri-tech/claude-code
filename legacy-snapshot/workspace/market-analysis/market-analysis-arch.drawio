@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio-mcp" modified="2026-03-27T13:21:52.000Z" agent="drawio-mcp/1.0" version="24.7.17" type="device" compressed="false">
+  <diagram name="market-analysis-arch" id="621fa2d91d73">
+    <mxGraphModel dx="1354" dy="981" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="httpx" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="620" y="680" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="3" value="BCBFetcher" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="140" y="530" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="4" value="CVM Portal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="430" y="830" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="5" value="DataFrame" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="240" y="830" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="6" value="fetch()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=10;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="230" y="230" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="7" value="B3Fetcher" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="340" y="530" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="8" value="Registry" style="shape=dataStorage;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="340" y="380" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="9" value="BCB API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="50" y="830" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="10" value="B3 Parser" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="240" y="680" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="11" value="list_sources()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=10;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="420" y="230" width="132.0" height="60.0" />
+        </mxCell>
+        <mxCell id="12" value="Consumer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=10;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="340" y="80" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="13" value="python-bcb" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="50" y="680" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="14" value="B3 Portal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="620" y="830" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="15" value="CVM Parser" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="430" y="680" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="16" value="CVMFetcher" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="520" y="530" width="120.0" height="60.0" />
+        </mxCell>
+        <mxCell id="17" value="ma.fetch()" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="12" target="6">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="18" value="ma.list_sources()" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="12" target="11">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="19" value="lookup" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="6" target="8">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="20" value="iterate" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="11" target="8">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="21" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="8" target="3">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="22" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="8" target="16">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="23" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="8" target="7">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="24" value="delegate" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="3" target="13">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="25" value="HTTP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="16" target="2">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="26" value="HTTP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="7" target="2">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="27" value="raw bytes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="16" target="15">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="28" value="raw bytes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="7" target="10">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="29" value="REST" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="13" target="9">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="30" value="HTTP/ZIP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="2" target="4">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="31" value="HTTP/CSV" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="2" target="14">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="32" value="return" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="3" target="5">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="200" y="860" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="33" value="return" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="15" target="5">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="34" value="return" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;" parent="1" edge="1" source="10" target="5">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="35" value="Market Analysis — Architecture" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=20;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="50" y="10" width="400" height="30" />
+        </mxCell>
+        <mxCell id="36" value="Component &amp; Data Flow Diagram" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#666666;" parent="1" vertex="1">
+          <mxGeometry as="geometry" x="50" y="42" width="400" height="20" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
