@@ -22,6 +22,8 @@
 
 **claude-code** is a collection of **agents** and **skills** installed in `~/.claude/` that work with [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code). It provides specialized AI capabilities covering the entire software development lifecycle — from architecture design to code review, debugging, product management, and SRE.
 
+Projects built on this foundation inherit these capabilities automatically.
+
 ---
 
 ## Founds & Experts
@@ -31,33 +33,24 @@ Agents are organized in two namespaces:
 ```
 FOUNDS (foundational)                    EXPERTS (specialists)
 ┌────────────────────────────┐          ┌──────────────────────────┐
-│  oracle    — manages       │          │  dev-py    — codes       │
-│  sentinel  — monitors      │          │  review-py — reviews     │
-│  architect — designs base  │          │  debater   — debates     │
-│                            │          │  tech-pm   — plans       │
-│  Work on the foundation.   │   ←──    │  explorer  — explores    │
-│  Build teams, configure    │  used    │  builder   — deploys     │
-│  projects, maintain the    │   by     │                          │
-│  ecosystem.                │          │  Pure expertise.         │
-│                            │          │  Any project can invoke  │
-│  NEVER accessed by         │          │  them via --agent.       │
-│  project bots.             │          │                          │
+│  oracle    — manages       │          │  architect — designs     │
+│  sentinel  — monitors      │          │  dev-py    — codes       │
+│                            │          │  review-py — reviews     │
+│  Work on the foundation.   │          │  debater   — debates     │
+│  Build teams, configure    │          │  tech-pm   — plans       │
+│  projects, maintain the    │          │  explorer  — explores    │
+│  ecosystem.                │          │  builder   — deploys     │
+│                            │          │                          │
+│  Ecosystem-only agents.    │          │  Pure expertise.         │
+│                            │          │  Reusable by any project │
+│                            │          │  built on this           │
+│                            │          │  foundation.             │
 └────────────────────────────┘          └──────────────────────────┘
 ```
 
 - **Founds** (`agents/founds/`) — Build the foundation for projects. Manage the ecosystem.
-- **Experts** (`agents/experts/`) — Pure specialists. Invoked by project bodies via `--agent`.
+- **Experts** (`agents/experts/`) — Pure specialists. Reusable by any project built on this foundation.
 - **Skills** (`skills/`) — Knowledge bases that agents consult.
-
-### How projects use experts
-
-```
-User input → Semantic Router → Expert selection → Claude CLI → Response
-                  │
-                  ├── "design the API" → architect + opus
-                  ├── "review PR #42"  → review-py + sonnet
-                  └── "what's the status?" → (direct) + haiku
-```
 
 ---
 
@@ -69,30 +62,18 @@ User input → Semantic Router → Expert selection → Claude CLI → Response
 |-------|-----------|-------|
 | **oracle** | Ecosystem manager, knowledge keeper | Opus |
 | **sentinel** | SRE, monitoring, observability | Haiku |
-| **architect** | Foundational architecture for projects | Opus |
 
 ### Experts (Specialists)
 
 | Agent | Specialty | Model |
 |-------|-----------|-------|
+| **architect** | System design, trade-offs, diagrams | Opus |
 | **dev-py** | Python implementation, TDD, quality | Opus |
 | **review-py** | Code review, PR analysis, diff comments | Opus |
 | **debater** | Compare approaches, debate trade-offs | Opus |
 | **tech-pm** | User stories, backlog, roadmap, OKRs | Opus |
 | **explorer** | Repository analysis, codebase onboarding | Opus |
 | **builder** | Local infra, Docker, deps, env setup | Sonnet |
-
-### Usage
-
-```bash
-# Use an expert directly
-claude --agent dev-py        # Python dev mode
-claude --agent architect     # Architecture mode (also available as found)
-claude --agent sentinel      # SRE/monitoring mode
-
-# Invoke from code via Claude CLI
-claude -p "Design a notification system" --agent architect --model opus
-```
 
 ---
 
@@ -114,10 +95,10 @@ claude -p "Design a notification system" --agent architect --model opus
 ├── agents/
 │   ├── founds/                       # Foundational agents
 │   │   ├── oracle.md                 #   Ecosystem manager
-│   │   ├── sentinel.md               #   SRE/observability
-│   │   └── architect.md              #   Architecture foundation
+│   │   └── sentinel.md               #   SRE/observability
 │   │
 │   └── experts/                      # Expert specialists
+│       ├── architect.md              #   System design
 │       ├── dev-py.md                 #   Python development
 │       ├── review-py.md              #   Code review
 │       ├── debater.md                #   Trade-off debates
@@ -161,12 +142,6 @@ bash ~/.claude/setup/bootstrap.sh --check  # verify
 ```bash
 cd ~/.claude && git pull && bash setup/bootstrap.sh
 ```
-
----
-
-## Projects Using This Foundation
-
-- [**bike-shop**](https://github.com/nelsonfrugeri-tech/bike-shop) — Multi-agent Slack team with Semantic Router, Mem0 shared memory, and Langfuse observability
 
 ---
 

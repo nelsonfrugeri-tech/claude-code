@@ -10,14 +10,14 @@ build teams, configure projects, maintain memory, and monitor health.
 
 - **oracle** — Ecosystem manager, knowledge keeper
 - **sentinel** — SRE, observability, monitoring
-- **architect** — Foundational architecture for projects
 
-**Rule:** Founds agents are NEVER accessible by project bots (bike-shop, etc.).
-They work WITHIN the claude-code ecosystem (~/.claude/).
+**Rule:** Founds agents are ecosystem-only. They work within the claude-code
+foundation and are not directly consumed by downstream projects.
 
 ### experts/ — Expert Specialists
-Pure specialists, reusable expertise. Projects invoke them via `--agent {expert}`.
+Pure specialists with reusable expertise. Available to any project built on this foundation.
 
+- **architect** — System design, trade-offs, diagrams
 - **dev-py** — Python development
 - **review-py** — Code review Python
 - **debater** — Approach comparison & trade-offs
@@ -25,11 +25,10 @@ Pure specialists, reusable expertise. Projects invoke them via `--agent {expert}
 - **explorer** — Codebase exploration
 - **builder** — Infrastructure / Docker
 
-**Rule:** Experts are agnostic — they don't know about Slack, bike-shop, or any specific app.
-Context comes from the Body (project) that invokes them.
+**Rule:** Experts are agnostic — they carry no knowledge of specific projects,
+platforms, or integrations. Context comes from the project that uses them.
 
 ### Isolation Rules
-1. **Experts** = agnostic, reusable by any project body
-2. **Founds** = ecosystem-only, NEVER accessible by project bodies
-3. **Tools/MCP** = NEVER global in settings.json, always per-project via `mcp.json`
-4. **Bodies** inherit experts but NOT ecosystem tools/MCPs
+1. **Experts** = agnostic, reusable by any project built on this foundation
+2. **Founds** = ecosystem-only, not consumed by downstream projects
+3. **Tools/MCP** = never global in settings.json, always per-project via `mcp.json`
