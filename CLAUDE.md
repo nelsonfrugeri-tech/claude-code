@@ -1,17 +1,34 @@
-# Claude Code - Instruções Globais
+# Claude Code - Global Instructions
 
-## Workspace de Projetos
+## Agent Architecture: Founds & Experts
 
-Todos os arquivos gerados por agents/skills (relatórios, context.md, análises, etc.) devem ser salvos em:
+Agents are organized in two namespaces under `~/.claude/agents/`:
 
-```
-$CLAUDE_WORKSPACE/<nome_projeto>/
-```
+### founds/ — Foundational Agents
+Agents that build the foundation for projects. They manage the Claude Code ecosystem,
+build teams, configure projects, maintain memory, and monitor health.
 
-Onde:
-- `$CLAUDE_WORKSPACE` = `~/.claude/workspace`
-- `<nome_projeto>` = basename do git root do projeto atual (`basename $(git rev-parse --show-toplevel 2>/dev/null) || basename $PWD`)
+- **oracle** — Ecosystem manager, knowledge keeper
+- **sentinel** — SRE, observability, monitoring
 
-**NUNCA** salve arquivos gerados na raiz do repositório do projeto. Isso evita que arquivos de workspace sejam commitados acidentalmente no repo remoto.
+**Rule:** Founds agents are ecosystem-only. They work within the claude-code
+foundation and are not directly consumed by downstream projects.
 
-Exemplo: se o projeto está em `~/projects/lm-gateway`, salve em `~/.claude/workspace/lm-gateway/`.
+### experts/ — Expert Specialists
+Pure specialists with reusable expertise. Available to any project built on this foundation.
+
+- **architect** — System design, trade-offs, diagrams
+- **dev-py** — Python development
+- **review-py** — Code review Python
+- **debater** — Approach comparison & trade-offs
+- **tech-pm** — Product management
+- **explorer** — Codebase exploration
+- **builder** — Infrastructure / Docker
+
+**Rule:** Experts are agnostic — they carry no knowledge of specific projects,
+platforms, or integrations. Context comes from the project that uses them.
+
+### Isolation Rules
+1. **Experts** = agnostic, reusable by any project built on this foundation
+2. **Founds** = ecosystem-only, not consumed by downstream projects
+3. **Tools/MCP** = never global in settings.json, always per-project via `mcp.json`
