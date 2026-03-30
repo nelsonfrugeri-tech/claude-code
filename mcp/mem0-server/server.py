@@ -47,10 +47,14 @@ def _build_config() -> dict:
             },
         },
         "llm": {
-            "provider": "anthropic",
+            "provider": "ollama",
             "config": {
-                "model": os.environ.get("MEM0_LLM_MODEL", "claude-haiku-4-5-20251001"),
-                "api_key": os.environ.get("ANTHROPIC_API_KEY", os.environ.get("ANTHROPIC_KEY", "")),
+                "model": os.environ.get("MEM0_LLM_MODEL", "qwen3:4b"),
+                "ollama_base_url": os.environ.get(
+                    "OLLAMA_URL", "http://localhost:11434"
+                ),
+                "temperature": 0.1,
+                "max_tokens": 2000,
             },
         },
     }
