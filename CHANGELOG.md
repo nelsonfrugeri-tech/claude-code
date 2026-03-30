@@ -24,6 +24,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 - Oracle agent rewritten: markdown knowledge base → Mem0, memory-keeper → Mem0, added Agent Teams coordination
 - Memory system migrated from markdown files + memory-keeper hooks to Qdrant vector store
+- GitHub MCP server: removed `apps.json` — all credentials now via env vars (`GITHUB_APP_ID`, `GITHUB_APP_PEM_PATH`, `GITHUB_APP_INSTALLATION_ID`, `GITHUB_APP_SLUG`)
+- GitHub skill updated to reference env vars instead of apps.json
+
+### Removed
+- `mcp/github-server/apps.json` — contained hardcoded credentials, replaced by env vars
   - 23 memories migrated successfully
   - Content stored intact (no LLM extraction loss)
 
