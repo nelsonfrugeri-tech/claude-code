@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- Mem0 MCP server (`mcp/mem0-server/`) — shared semantic memory via Qdrant + Ollama
+  - 6 tools: `mem0_store`, `mem0_recall`, `mem0_search`, `mem0_list`, `mem0_delete`, `mem0_update`
+  - Persistent memory across terminals and sessions
+  - Metadata: type (procedural/decision/project/feedback/reference/episodic), project, tags
+  - Collection: `claude-code-memory` (separate from downstream projects)
+
 ## [0.1.0] - 2026-03-30
 
 ### Added
