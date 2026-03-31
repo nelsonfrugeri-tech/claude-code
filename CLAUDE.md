@@ -118,7 +118,7 @@ is based on training data which may be outdated.
 **Every session and every spawned agent MUST run in a git worktree. No exceptions. Enforced by SessionStart hook — not by prompt.**
 
 ### Rules
-1. **Always start sessions with `--worktree`** — `claude --worktree <name>`. The `enforce-worktree.sh` hook blocks sessions not in a worktree
+1. **Always start sessions with `-w`** — `claude -w <name>`. The `enforce-worktree.sh` hook blocks sessions not in a worktree
 2. **Always use `isolation: "worktree"`** when spawning agents via the Agent tool
 3. **Never edit files in a branch you didn't create** — if the branch belongs to another session/agent, create your own
 4. **This applies to all agent types** — founds, experts, Oracle itself, any subagent
