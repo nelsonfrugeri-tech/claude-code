@@ -12,7 +12,7 @@ import os
 import subprocess
 import time
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Literal
 
 import httpx
 import jwt
@@ -376,6 +376,85 @@ async def github_close_pr(
             "status": "closed",
             "pr_number": pr_number,
             "closed_by": app_slug,
+        })
+    except httpx.HTTPStatusError as e:
+        error_body = e.response.json() if e.response.content else {}
+        return json.dumps({
+            "status": "error",
+            "http_status": e.response.status_code,
+            "error": error_body.get("message", str(e)),
+        })
+    except Exception as e:
+        return json.dumps({"status": "error", "error": str(e)})
+
+
+@mcp.tool()
+async def github_merge_pr(
+    repo: Annotated[str, Field(description="Repository in owner/repo format")],
+    pr_number: Annotated[int, Field(description="PR number to merge")],
+    agent_name: Annotated[str, Field(description="Agent merging this PR (used for logging/tracking)")],
+    merge_method: Annotated[Literal["merge", "squash", "rebase"], Field(description="Merge method: merge, squash, or rebase")] = "merge",
+) -> str:
+    """Merge a Pull Request via the agent's GitHub App identity.
+
+    Validates that the PR is open and mergeable before attempting.
+    Supports merge, squash, and rebase methods.
+    """
+    try:
+        token, app_slug = _get_installation_token(agent_name)
+    except ValueError as e:
+        return json.dumps({"status": "error", "error": str(e)})
+
+    try:
+        async with httpx.AsyncClient() as client:
+            # Check PR is mergeable
+            pr_resp = await client.get(
+                f"https://api.github.com/repos/{repo}/pulls/{pr_number}",
+                headers={
+                    "Authorization": f"token {token}",
+                    "Accept": "application/vnd.github+json",
+                },
+            )
+            pr_resp.raise_for_status()
+            pr = pr_resp.json()
+
+            if pr["state"] != "open":
+                return json.dumps({
+                    "status": "error",
+                    "error": f"PR #{pr_number} is {pr['state']}, not open.",
+                })
+
+            mergeable = pr.get("mergeable")
+            if mergeable is None:
+                return json.dumps({
+                    "status": "error",
+                    "error": f"PR #{pr_number} mergeability not yet determined by GitHub. Wait a few seconds and retry.",
+                })
+            if mergeable is False:
+                return json.dumps({
+                    "status": "error",
+                    "error": f"PR #{pr_number} has merge conflicts. Resolve them first.",
+                })
+
+            # Merge
+            merge_resp = await client.put(
+                f"https://api.github.com/repos/{repo}/pulls/{pr_number}/merge",
+                headers={
+                    "Authorization": f"token {token}",
+                    "Accept": "application/vnd.github+json",
+                },
+                json={"merge_method": merge_method},
+            )
+            merge_resp.raise_for_status()
+            merge_result = merge_resp.json()
+
+        return json.dumps({
+            "status": "merged",
+            "pr_number": pr_number,
+            "sha": merge_result.get("sha", ""),
+            "merge_method": merge_method,
+            "merged_by": app_slug,
+            "agent": agent_name,
         })
     except httpx.HTTPStatusError as e:
         error_body = e.response.json() if e.response.content else {}
