@@ -1,70 +1,70 @@
 ---
 name: arch-ts
 description: |
-  Skill de arquitetura TypeScript/Frontend — foco em design de sistemas, trade-offs arquiteturais, patterns estruturais e decisoes tecnicas de alto nivel.
-  Cobre: type system avancado, React patterns, Server Components, state management, testing, styling, performance, accessibility, e melhores praticas estado da arte.
-  Use quando: (1) Projetar arquitetura de sistemas frontend, (2) Avaliar trade-offs e decisoes tecnicas, (3) Aplicar patterns arquiteturais e design de alto nivel.
+  Skill de arquitetura TypeScript/Frontend — foco em design de sistemas, trade-offs arquiteturais, patterns estruturais e decisões técnicas de alto nível.
+  Cobre: type system avançado, React patterns, Server Components, state management, testing, styling, performance, accessibility, e melhores práticas estado da arte.
+  Use quando: (1) Projetar arquitetura de sistemas frontend, (2) Avaliar trade-offs e decisões técnicas, (3) Aplicar patterns arquiteturais e design de alto nível.
   Triggers: /arch-ts, /arch-frontend, arquitetura TypeScript, frontend system design, design decisions, architectural patterns.
 ---
 
 # Arch-TS Skill - TypeScript/Frontend Architecture & Design
 
-## Padrao de Conversa
+## Padrão de Conversa
 
-### Principios de Comunicacao
+### Princípios de Comunicação
 
-**Verificabilidade e Transparencia:**
-- Nunca apresente conteudo gerado, inferido, especulado ou deduzido como fato.
-- Se voce nao pode verificar algo diretamente, diga claramente:
-  - "Nao posso verificar isso."
-  - "Nao tenho acesso a essa informacao."
-  - "Minha base de conhecimento nao contem isso."
+**Verificabilidade e Transparência:**
+- Nunca apresente conteúdo gerado, inferido, especulado ou deduzido como fato.
+- Se você não pode verificar algo diretamente, diga claramente:
+  - "Não posso verificar isso."
+  - "Não tenho acesso a essa informação."
+  - "Minha base de conhecimento não contem isso."
 
-**Rotulacao de Conteudo Nao Verificado:**
-- Rotule conteudo nao verificado no inicio da sentenca usando:
-  - `[Inference]` - Para inferencias baseadas em padroes
-  - `[Speculation]` - Para especulacao ou hipoteses
-  - `[Unverified]` - Para informacoes que nao podem ser confirmadas
-- Se qualquer parte da resposta for nao verificada, rotule a resposta inteira.
+**Rotulação de Conteúdo Não Verificado:**
+- Rotule conteúdo não verificado no início da sentença usando:
+  - `[Inference]` - Para inferências baseadas em padrões
+  - `[Speculation]` - Para especulação ou hipóteses
+  - `[Unverified]` - Para informações que não podem ser confirmadas
+- Se qualquer parte da resposta for não verificada, rotule a resposta inteira.
 
 **Esclarecimentos:**
-- Peca esclarecimentos se houver informacao faltando.
-- Nao adivinhe ou preencha lacunas por conta propria.
-- Nao parafraseie nem reinterprete o input do usuario a menos que solicitado.
+- Peça esclarecimentos se houver informação faltando.
+- Não adivinhe ou preencha lacunas por conta própria.
+- Não parafraseie nem reinterprete o input do usuário a menos que solicitado.
 
-**Correcoes:**
-- Se quebrar esta diretiva, reconheca imediatamente:
-  - "Correcao: Eu anteriormente fiz uma afirmacao nao verificada. Isso estava incorreto e deveria ter sido rotulado."
+**Correções:**
+- Se quebrar esta diretiva, reconheça imediatamente:
+  - "Correção: Eu anteriormente fiz uma afirmação não verificada. Isso estava incorreto e deveria ter sido rotulado."
 
-**Preservacao de Input:**
-- Nunca altere ou modifique o input do usuario a menos que explicitamente solicitado.
+**Preservação de Input:**
+- Nunca altere ou modifique o input do usuário a menos que explícitamente solicitado.
 
 ---
 
-## Principios Fundamentais
+## Princípios Fundamentais
 
 **Arquitetura e Design de Sistemas:**
 - Use arquitetura e design de sistemas TypeScript/Frontend estado da arte.
-- Pense profundamente sobre trade-offs, boundaries e decisoes tecnicas de alto nivel.
-- Adote uma abordagem cetica e questionadora sobre escolhas arquiteturais.
+- Pense profundamente sobre trade-offs, boundaries e decisões técnicas de alto nível.
+- Adote uma abordagem cética e questionadora sobre escolhas arquiteturais.
 
-**Decomposicao de Problemas:**
-- Entenda o sistema como um todo antes de propor solucoes.
-- Avalie se faz sentido quebrar em modulos, camadas ou componentes menores.
-- Proponha essa decomposicao quando necessario, explicando o raciocinio arquitetural.
+**Decomposição de Problemas:**
+- Entenda o sistema como um todo antes de propor soluções.
+- Avalie se faz sentido quebrar em módulos, camadas ou componentes menores.
+- Proponha essa decomposição quando necessário, explicando o raciocínio arquitetural.
 
 **Idioma:**
-- Escreva codigo e comentarios sempre em ingles.
-- Documentacao tecnica e nomes de variaveis em ingles.
-- Discussoes e explicacoes podem ser em portugues quando solicitado.
+- Escreva código e comentários sempre em inglês.
+- Documentação técnica e nomes de variáveis em inglês.
+- Discussões e explicações podem ser em português quando solicitado.
 
 ---
 
-## Padroes TypeScript Basicos
+## Padrões TypeScript Básicos
 
-### Tipagem Explicita
+### Tipagem Explícita
 
-Utilize sempre tipagem explicita em todas as variaveis e funcoes:
+Utilize sempre tipagem explícita em todas as variáveis e funções:
 ```typescript
 interface ProcessResult {
   readonly count: number;
@@ -81,17 +81,17 @@ function processItems(items: string[], limit: number = 10): ProcessResult {
 
 Sempre habilite `strict: true` no `tsconfig.json`. Isso ativa:
 - `strictNullChecks` — null/undefined como tipos distintos
-- `noImplicitAny` — proibe any implicito
-- `strictFunctionTypes` — checagem contravariante de parametros
+- `noImplicitAny` — proibe any implícito
+- `strictFunctionTypes` — checagem contravariante de parâmetros
 - `noUncheckedIndexedAccess` — index access retorna `T | undefined`
 
-### Formatacao Biome
+### Formatação Biome
 
-Formate todo codigo com Biome (substitui ESLint + Prettier):
-- Indentacao com tabs (padrao Biome)
+Formate todo código com Biome (substitui ESLint + Prettier):
+- Indentação com tabs (padrão Biome)
 - Aspas duplas para strings
 - Trailing commas em estruturas multi-linha
-- Ponto-e-virgula obrigatorio
+- Ponto-e-vírgula obrigatório
 
 ```typescript
 function createUser(
@@ -116,12 +116,12 @@ function createUser(
 
 ## Conceitos TypeScript/Frontend Modernos - Overview
 
-Visao geral de cada conceito estado da arte. Para detalhes e exemplos avancados, consulte os arquivos de referencia indicados.
+Visão geral de cada conceito estado da arte. Para detalhes e exemplos avançados, consulte os arquivos de referencia indicados.
 
-### 1. Type System Avancado
+### 1. Type System Avançado
 **Quando usar:** Contratos claros, utility types, discriminated unions, branded types.
 
-TypeScript 5.7+ oferece: generics avancados, template literal types, `satisfies`, const assertions, conditional types, mapped types.
+TypeScript 5.7+ oferece: generics avançados, template literal types, `satisfies`, const assertions, conditional types, mapped types.
 ```typescript
 // Discriminated union
 type Result<T> =
@@ -143,12 +143,12 @@ const config = {
 } satisfies Record<string, string | number>;
 ```
 
-**Referencia:** [references/typescript/type-system.md](references/typescript/type-system.md)
+**Referência:** [references/typescript/type-system.md](references/typescript/type-system.md)
 
 ---
 
 ### 2. TypeScript Patterns
-**Quando usar:** Organizacao de modulos, dependency injection, patterns estruturais.
+**Quando usar:** Organizacao de módulos, dependency injection, patterns estruturais.
 
 Patterns modernos: barrel files (com cuidado), path aliases, factory pattern, strategy pattern, builder pattern.
 ```typescript
@@ -167,12 +167,12 @@ class ImageProcessor {
 }
 ```
 
-**Referencia:** [references/typescript/patterns.md](references/typescript/patterns.md)
+**Referência:** [references/typescript/patterns.md](references/typescript/patterns.md)
 
 ---
 
 ### 3. Strict Config
-**Quando usar:** Sempre. Configuracao base para qualquer projeto TypeScript.
+**Quando usar:** Sempre. Configuração base para qualquer projeto TypeScript.
 
 tsconfig.json best practices: strict mode completo, moduleResolution bundler, ESM-first.
 ```jsonc
@@ -188,12 +188,12 @@ tsconfig.json best practices: strict mode completo, moduleResolution bundler, ES
 }
 ```
 
-**Referencia:** [references/typescript/strict-config.md](references/typescript/strict-config.md)
+**Referência:** [references/typescript/strict-config.md](references/typescript/strict-config.md)
 
 ---
 
 ### 4. React Component Patterns
-**Quando usar:** Construir componentes reutilizaveis, composicao, polimorfismo.
+**Quando usar:** Construir componentes reutilizáveis, composição, polimorfismo.
 
 React 19+: compound components, polymorphic components, render props, composition over inheritance.
 ```typescript
@@ -216,7 +216,7 @@ Select.Option = function Option({ value, children }: OptionProps) {
 };
 ```
 
-**Referencia:** [references/react/component-patterns.md](references/react/component-patterns.md)
+**Referência:** [references/react/component-patterns.md](references/react/component-patterns.md)
 
 ---
 
@@ -240,7 +240,7 @@ async function UserProfile({ userId }: { userId: string }) {
 }
 ```
 
-**Referencia:** [references/react/server-components.md](references/react/server-components.md)
+**Referência:** [references/react/server-components.md](references/react/server-components.md)
 
 ---
 
@@ -261,12 +261,12 @@ function App() {
 }
 ```
 
-**Referencia:** [references/react/performance.md](references/react/performance.md)
+**Referência:** [references/react/performance.md](references/react/performance.md)
 
 ---
 
 ### 7. Custom Hooks
-**Quando usar:** Logica reutilizavel, composicao de comportamento, encapsulamento de side effects.
+**Quando usar:** Logica reutilizável, composição de comportamento, encapsulamento de side effects.
 
 Custom hooks patterns, rules of hooks, useEffect cleanup, useReducer, hook composition.
 ```typescript
@@ -282,7 +282,7 @@ function useDebounce<T>(value: T, delay: number): T {
 }
 ```
 
-**Referencia:** [references/react/hooks.md](references/react/hooks.md)
+**Referência:** [references/react/hooks.md](references/react/hooks.md)
 
 ---
 
@@ -307,16 +307,16 @@ const useCartStore = create<CartStore>((set, get) => ({
 }));
 ```
 
-**Referencia:** [references/state/architecture.md](references/state/architecture.md)
+**Referência:** [references/state/architecture.md](references/state/architecture.md)
 
 ---
 
 ### 9. Tailwind CSS
-**Quando usar:** Styling padrao para a maioria dos projetos.
+**Quando usar:** Styling padrão para a maioria dos projetos.
 
 Utility-first, responsive design, dark mode, cn() utility, component extraction.
 
-**Referencia:** [references/styling/tailwind.md](references/styling/tailwind.md)
+**Referência:** [references/styling/tailwind.md](references/styling/tailwind.md)
 
 ---
 
@@ -337,22 +337,22 @@ describe("UserCard", () => {
 });
 ```
 
-**Referencia:** [references/testing/vitest.md](references/testing/vitest.md)
+**Referência:** [references/testing/vitest.md](references/testing/vitest.md)
 
 ---
 
 ### 11. E2E Testing com Playwright
-**Quando usar:** Fluxos criticos de usuario, regressao visual, integracao.
+**Quando usar:** Fluxos críticos de usuário, regressao visual, integração.
 
 Page object model, locators, assertions, visual regression, CI configuration.
 
-**Referencia:** [references/testing/playwright.md](references/testing/playwright.md)
+**Referência:** [references/testing/playwright.md](references/testing/playwright.md)
 
 ---
 
 ## Ferramentas Essenciais
 
-| Categoria | Ferramenta | Proposito | Comando |
+| Categoria | Ferramenta | Propósito | Comando |
 |-----------|------------|-----------|---------|
 | Lint+Format | **Biome** | Linter e formatter unificado | `biome check --write .` |
 | Test | **Vitest** | Framework de testes | `vitest` |
@@ -360,7 +360,7 @@ Page object model, locators, assertions, visual regression, CI configuration.
 | Package | **pnpm** | Gerenciador de pacotes | `pnpm install` |
 | Build | **Vite** | Build tool e dev server | `vite dev` |
 
-**Referencia:** [references/tooling/biome.md](references/tooling/biome.md)
+**Referência:** [references/tooling/biome.md](references/tooling/biome.md)
 
 ---
 
@@ -369,7 +369,7 @@ Page object model, locators, assertions, visual regression, CI configuration.
 ANALISAR -> PROJETAR -> TIPAR -> IMPLEMENTAR -> VALIDAR -> REVISAR
 ```
 
-1. **Analisar**: Entenda o sistema, mapeie dependencias e constraints
+1. **Analisar**: Entenda o sistema, mapeie dependências e constraints
 2. **Projetar**: Defina boundaries, interfaces e trade-offs arquiteturais
 3. **Tipar**: Interfaces e types antes da implementacao
 4. **Implementar**: Codigo seguindo o design e os tipos
@@ -378,7 +378,7 @@ ANALISAR -> PROJETAR -> TIPAR -> IMPLEMENTAR -> VALIDAR -> REVISAR
 
 ---
 
-## Referencias por Dominio
+## Referências por Domínio
 
 ### TypeScript Core
 - [references/typescript/type-system.md](references/typescript/type-system.md) - Generics, utility types, branded types, conditional types

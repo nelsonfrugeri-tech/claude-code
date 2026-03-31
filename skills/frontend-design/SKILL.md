@@ -3,19 +3,19 @@ name: frontend-design
 description: |
   Skill de design frontend, UI/UX e visual design — foco em elegancia, usabilidade, acessibilidade e estetica estado da arte.
   Cobre: design systems, color theory (OKLCH), typography, layout, motion/animation, UX patterns, accessibility (WCAG 2.2), visual trends, component libraries, e iconografia.
-  Use quando: (1) Projetar interfaces elegantes e acessiveis, (2) Escolher paletas, tipografia e spacing, (3) Aplicar patterns de UX modernos, (4) Garantir acessibilidade WCAG 2.2.
+  Use quando: (1) Projetar interfaces elegantes e acessíveis, (2) Escolher paletas, tipografia e spacing, (3) Aplicar patterns de UX modernos, (4) Garantir acessibilidade WCAG 2.2.
   Triggers: /frontend-design, /design, /ux, UI design, visual design, color palette, typography, accessibility, UX patterns.
 ---
 
 # Frontend Design Skill - UI/UX & Visual Design Knowledge Base
 
-## Proposito
+## Propósito
 
-Esta skill e a **biblioteca de conhecimento** para design frontend estado da arte (2026).
+Esta skill é a **biblioteca de conhecimento** para design frontend estado da arte (2026).
 Ela complementa a `arch-ts` skill (arquitetura tecnica) com a camada de **taste e elegancia**.
 
 **Quem usa esta skill:**
-- Agent `dev-ts` -> ao construir interfaces bonitas e acessiveis
+- Agent `dev-ts` -> ao construir interfaces bonitas e acessíveis
 - Agent `review-ts` -> ao revisar qualidade visual e UX
 - Voce diretamente -> quando precisar de referencia de design
 
@@ -31,10 +31,10 @@ Ela complementa a `arch-ts` skill (arquitetura tecnica) com a camada de **taste 
 - Icons & images (Lucide, AVIF/WebP, picture element)
 - Component libraries (shadcn/ui ecosystem)
 
-**O que esta skill NAO contem:**
+**O que esta skill NÃO contem:**
 - Arquitetura tecnica TypeScript/React (isso esta em `arch-ts`)
 - State management, data fetching (isso esta em `arch-ts`)
-- Workflow de execucao — isso esta nos agents
+- Workflow de execução — isso esta nos agents
 
 ---
 
@@ -42,21 +42,21 @@ Ela complementa a `arch-ts` skill (arquitetura tecnica) com a camada de **taste 
 
 ### Design e Engineering sao inseparaveis
 
-**Belo NAO e suficiente.** Uma interface deve ser:
+**Belo NÃO e suficiente.** Uma interface deve ser:
 1. **Acessivel** — WCAG 2.2 AA minimo, APCA para contraste
 2. **Performante** — 60fps animations, lazy loading, optimized images
 3. **Consistente** — design tokens, not ad-hoc values
 4. **Responsiva** — container queries > media queries
 5. **Inclusiva** — prefers-reduced-motion, prefers-color-scheme, focus-visible
 
-### Principios Fundamentais
+### Princípios Fundamentais
 
-**1. Tokens, nao valores magicos**
+**1. Tokens, não valores magicos**
 - Toda cor, spacing, font-size vem de um token
 - Nunca `color: #3b82f6` — sempre `color: var(--color-primary)`
 - Nunca `padding: 12px` — sempre `p-3` (Tailwind) ou `var(--space-3)`
 
-**2. OKLCH e o novo padrao**
+**2. OKLCH é o novo padrao**
 - Perceptualmente uniforme (L=50 e sempre o mesmo brilho visual)
 - P3 gamut (cores mais vibrantes que sRGB)
 - Tailwind v4 ja usa OKLCH internamente
@@ -65,16 +65,16 @@ Ela complementa a `arch-ts` skill (arquitetura tecnica) com a camada de **taste 
 **3. Headless primeiro**
 - Radix UI / Base UI para comportamento e acessibilidade
 - Tailwind para styling
-- shadcn/ui como acelerador (copy-paste, nao dependencia)
-- Voce controla tudo, nao luta contra o framework
+- shadcn/ui como acelerador (copy-paste, não dependencia)
+- Voce controla tudo, não luta contra o framework
 
 **4. Motion com proposito**
-- Animacao nao e decoracao — comunica estado, guia atencao
+- Animacao não e decoração — comunica estado, guia atenção
 - Spring physics > linear/ease — se comporta como o mundo real
 - SEMPRE respeite `prefers-reduced-motion`
-- Menos e mais: micro-interactions > animacoes grandiosas
+- Menos e mais: micro-interactions > animações grandiosas
 
-**5. Dark mode nao e afterthought**
+**5. Dark mode não e afterthought**
 - Design dark-first, adapte para light
 - OKLCH simplifica: ajuste L (lightness) axis
 - Teste AMBOS temas em cada componente
@@ -94,13 +94,13 @@ Tailwind CSS v4 (styling: utility-first, CSS-first config)
    +
 shadcn/ui (pre-built components: copy into your project)
    =
-Your Design System (customizado, acessivel, bonito)
+Your Design System (customizado, acessível, bonito)
 ```
 
 ### Por que headless?
 
 ```tsx
-// Radix Dialog: comportamento + a11y built-in, voce controla o visual
+// Radix Dialog: comportamento + a11y built-in, você controla o visual
 import * as Dialog from "@radix-ui/react-dialog";
 
 export function Modal({ children, trigger }: ModalProps) {
@@ -144,13 +144,13 @@ export function Modal({ children, trigger }: ModalProps) {
 }
 ```
 
-**Referencia:** [references/components/shadcn-ecosystem.md](references/components/shadcn-ecosystem.md)
+**Referência:** [references/components/shadcn-ecosystem.md](references/components/shadcn-ecosystem.md)
 
 ---
 
 ## 2. Color Theory — OKLCH
 
-**OKLCH** e o color space perceptualmente uniforme adotado pelo Tailwind v4.
+**OKLCH** é o color space perceptualmente uniforme adotado pelo Tailwind v4.
 
 ```css
 /* OKLCH syntax: oklch(Lightness Chroma Hue) */
@@ -180,14 +180,14 @@ export function Modal({ children, trigger }: ModalProps) {
 
 | Aspecto | HSL | OKLCH |
 |---------|-----|-------|
-| Uniformidade perceptual | Nao (hsl(60,100%,50%) parece mais claro que hsl(240,100%,50%)) | Sim (L=0.5 e sempre o mesmo brilho) |
+| Uniformidade perceptual | Não (hsl(60,100%,50%) parece mais claro que hsl(240,100%,50%)) | Sim (L=0.5 e sempre o mesmo brilho) |
 | Gamut | sRGB apenas | P3 (mais cores em displays modernos) |
 | Dark mode | Trabalhoso (ajustar cada cor) | Simples (ajustar L axis) |
 | Tailwind v4 | Legado | Nativo |
 
-**Referencia:** [references/color/oklch.md](references/color/oklch.md)
-**Referencia:** [references/color/semantic-tokens.md](references/color/semantic-tokens.md)
-**Referencia:** [references/color/dark-mode.md](references/color/dark-mode.md)
+**Referência:** [references/color/oklch.md](references/color/oklch.md)
+**Referência:** [references/color/semantic-tokens.md](references/color/semantic-tokens.md)
+**Referência:** [references/color/dark-mode.md](references/color/dark-mode.md)
 
 ---
 
@@ -242,18 +242,18 @@ p  { font-size: var(--text-base); }
 | Fraunces Variable | Source Sans 3 | Warm, friendly |
 | Geist Sans | Geist Mono | Developer tools |
 
-**Referencia:** [references/typography/fluid-typography.md](references/typography/fluid-typography.md)
-**Referencia:** [references/typography/variable-fonts.md](references/typography/variable-fonts.md)
-**Referencia:** [references/typography/font-pairing.md](references/typography/font-pairing.md)
+**Referência:** [references/typography/fluid-typography.md](references/typography/fluid-typography.md)
+**Referência:** [references/typography/variable-fonts.md](references/typography/variable-fonts.md)
+**Referência:** [references/typography/font-pairing.md](references/typography/font-pairing.md)
 
 ---
 
 ## 4. Layout
 
-**Container queries** sao a revolucao: componentes responsivos ao seu container, nao ao viewport.
+**Container queries** sao a revolução: componentes responsivos ao seu container, não ao viewport.
 
 ```css
-/* Container query: card adapta ao espaco disponivel */
+/* Container query: card adapta ao espaco disponível */
 .card-wrapper {
   container-type: inline-size;
   container-name: card;
@@ -314,14 +314,14 @@ p  { font-size: var(--text-base); }
 64px = hero spacing (p-16)
 ```
 
-**Referencia:** [references/layout/modern-css-layout.md](references/layout/modern-css-layout.md)
-**Referencia:** [references/layout/spacing-system.md](references/layout/spacing-system.md)
+**Referência:** [references/layout/modern-css-layout.md](references/layout/modern-css-layout.md)
+**Referência:** [references/layout/spacing-system.md](references/layout/spacing-system.md)
 
 ---
 
 ## 5. Motion
 
-**Motion** (formerly Framer Motion) e a biblioteca padrao para animacoes React.
+**Motion** (formerly Framer Motion) é a biblioteca padrão para animações React.
 
 ```tsx
 import { motion, AnimatePresence } from "motion/react";
@@ -395,7 +395,7 @@ Need animation?
   +-- Page transition? --> View Transitions API
 ```
 
-**Referencia:** [references/motion/animation-guide.md](references/motion/animation-guide.md)
+**Referência:** [references/motion/animation-guide.md](references/motion/animation-guide.md)
 
 ---
 
@@ -478,24 +478,24 @@ function CommandPalette() {
 }
 ```
 
-**Referencia:** [references/ux-patterns/loading-states.md](references/ux-patterns/loading-states.md)
-**Referencia:** [references/ux-patterns/interaction-patterns.md](references/ux-patterns/interaction-patterns.md)
+**Referência:** [references/ux-patterns/loading-states.md](references/ux-patterns/loading-states.md)
+**Referência:** [references/ux-patterns/interaction-patterns.md](references/ux-patterns/interaction-patterns.md)
 
 ---
 
 ## 7. Accessibility — WCAG 2.2
 
-**Baseline:** WCAG 2.2 Level AA. Nao e opcional.
+**Baseline:** WCAG 2.2 Level AA. Não e opcional.
 
 ### Key criteria
 
 | Criterion | What | Implementation |
 |-----------|------|----------------|
-| 2.4.7 Focus Visible | Focus indicator visivel | `:focus-visible` outline |
-| 2.4.11 Focus Not Obscured (Min) | Focus nao escondido | `scroll-margin`, z-index |
+| 2.4.7 Focus Visible | Focus indicator visível | `:focus-visible` outline |
+| 2.4.11 Focus Not Obscured (Min) | Focus não escondido | `scroll-margin`, z-index |
 | 2.5.8 Target Size (Min) | Touch target >= 24x24px | `min-w-6 min-h-6` |
 | 1.4.3 Contrast (Min) | Texto legivel | APCA >= Lc 60 |
-| 4.1.2 Name, Role, Value | Semantica correta | Semantic HTML + ARIA |
+| 4.1.2 Name, Role, Value | Semântica correta | Semantic HTML + ARIA |
 
 ### Focus-visible (the correct approach)
 
@@ -533,7 +533,7 @@ function CommandPalette() {
 // if a native HTML element can do the job.
 ```
 
-**Referencia:** [references/accessibility/wcag-2-2.md](references/accessibility/wcag-2-2.md)
+**Referência:** [references/accessibility/wcag-2-2.md](references/accessibility/wcag-2-2.md)
 
 ---
 
@@ -594,7 +594,7 @@ function CommandPalette() {
 }
 ```
 
-**Referencia:** [references/visual/trends-2026.md](references/visual/trends-2026.md)
+**Referência:** [references/visual/trends-2026.md](references/visual/trends-2026.md)
 
 ---
 
@@ -629,13 +629,13 @@ function Icon({ icon: IconComponent, size = 16, ...props }: IconProps) {
 </picture>
 ```
 
-**Referencia:** [references/components/icons-images.md](references/components/icons-images.md)
+**Referência:** [references/components/icons-images.md](references/components/icons-images.md)
 
 ---
 
 ## 10. Component Libraries — shadcn/ui
 
-shadcn/ui nao e uma dependencia — e um **acelerador**. Voce copia os componentes, eles sao seus.
+shadcn/ui não é uma dependencia — é um **acelerador**. Voce copia os componentes, eles sao seus.
 
 ```bash
 # Initialize shadcn/ui
@@ -665,13 +665,13 @@ export function cn(...inputs: ClassValue[]): string {
 | Magic UI | Micro-interactions | Buttons, cards, effects |
 | Motion (Framer) | Custom animations | Complex sequences |
 
-**Referencia:** [references/components/shadcn-ecosystem.md](references/components/shadcn-ecosystem.md)
+**Referência:** [references/components/shadcn-ecosystem.md](references/components/shadcn-ecosystem.md)
 
 ---
 
 ## Ferramentas Essenciais
 
-| Categoria | Ferramenta | Proposito |
+| Categoria | Ferramenta | Propósito |
 |-----------|------------|-----------|
 | Styling | **Tailwind CSS v4** | Utility-first CSS, OKLCH nativo |
 | Primitives | **Radix UI** | Headless accessible components |
@@ -699,13 +699,13 @@ TOKENS -> LAYOUT -> COMPONENTS -> MOTION -> A11Y -> POLISH
 1. **Tokens**: Definir paleta OKLCH, typography scale, spacing system
 2. **Layout**: Container queries, grid system, responsive structure
 3. **Components**: shadcn/ui base, customize com tokens, compose
-4. **Motion**: Adicionar animacoes com proposito (state, feedback, delight)
+4. **Motion**: Adicionar animações com proposito (state, feedback, delight)
 5. **A11y**: Testar focus, contrast, screen reader, target size
 6. **Polish**: Grain, gradients, shadows, micro-interactions, dark mode
 
 ---
 
-## Referencias por Dominio
+## Referências por Domínio
 
 ### Color
 - [references/color/oklch.md](references/color/oklch.md) - OKLCH color space em profundidade

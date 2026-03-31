@@ -1,6 +1,6 @@
 # Code Review Checklist (TypeScript/Frontend)
 
-Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a arch-ts skill que contem os padroes completos e exemplos.
+Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a arch-ts skill que contem os padrões completos e exemplos.
 
 ---
 
@@ -11,9 +11,9 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 1. Percorra as categorias abaixo sequencialmente
 2. Para cada check, consulte a referencia indicada na arch-ts skill
 3. Marque [x] quando item verificado
-4. Se encontrar violacao, gere comentario citando:
+4. Se encontrar violação, gere comentário citando:
    - O check violado
-   - Severidade tipica
+   - Severidade típica
    - Referencia da arch-ts skill
 
 **Severidade e indicativa.** Use bom senso baseado no contexto.
@@ -25,59 +25,59 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 ### [ ] 1. Secrets e Env Vars
 **Verificar:**
 - Sem API keys, tokens, passwords no client-side code
-- Env vars com `NEXT_PUBLIC_` apenas para dados realmente publicos
+- Env vars com `NEXT_PUBLIC_` apenas para dados realmente públicos
 - Secrets usados apenas em Server Components ou API routes
 - `.env.local` no `.gitignore`
 
-**Severidade tipica:** 🔴 Critical
-**Referencia:** [Arch-Ts - Environment Variables](../../arch-ts/references/nextjs/env-vars.md)
+**Severidade típica:** 🔴 Critical
+**Referência:** [Arch-Ts - Environment Variables](../../arch-ts/references/typescript/type-system.md)
 
 ---
 
 ### [ ] 2. XSS Prevention
 **Verificar:**
-- `dangerouslySetInnerHTML` nunca usado com input de usuario sem sanitizacao
-- DOMPurify ou equivalente usado quando HTML dinamico e necessario
+- `dangerouslySetInnerHTML` nunca usado com input de usuário sem sanitização
+- DOMPurify ou equivalente usado quando HTML dinâmico e necessário
 - `href` com `javascript:` protocol bloqueado
-- User-generated content escapado por padrao (React faz isso, mas verificar bypasses)
+- User-generated content escapado por padrão (React faz isso, mas verificar bypasses)
 
-**Severidade tipica:** 🔴 Critical
-**Referencia:** OWASP XSS Prevention + [Arch-Ts - Security](../../arch-ts/references/security/xss.md)
+**Severidade típica:** 🔴 Critical
+**Referência:** OWASP XSS Prevention + [Arch-Ts - Security](../../arch-ts/references/react/component-patterns.md)
 
 ---
 
 ### [ ] 3. CSRF e Forms
 **Verificar:**
-- Forms com CSRF tokens quando necessario
-- Server Actions com validacao de origem
+- Forms com CSRF tokens quando necessário
+- Server Actions com validação de origem
 - Fetch requests com credentials corretamente configurados
 
-**Severidade tipica:** 🟠 High
-**Referencia:** [Arch-Ts - Server Actions](../../arch-ts/references/nextjs/server-actions.md)
+**Severidade típica:** 🟠 High
+**Referência:** [Arch-Ts - Server Actions](../../arch-ts/references/react/server-components.md)
 
 ---
 
 ### [ ] 4. Authentication e Authorization
 **Verificar:**
 - Rotas protegidas com middleware ou layout guards
-- Tokens nao armazenados em localStorage (prefira httpOnly cookies)
-- Verificacao de permissoes antes de exibir dados sensiveis
+- Tokens não armazenados em localStorage (prefira httpOnly cookies)
+- Verificação de permissões antes de exibir dados sensíveis
 - Server Components usados para dados que requerem auth
 
-**Severidade tipica:** 🔴 Critical (rotas publicas) / 🟠 High (internas)
-**Referencia:** [Arch-Ts - Auth Patterns](../../arch-ts/references/nextjs/auth.md)
+**Severidade típica:** 🔴 Critical (rotas públicas) / 🟠 High (internas)
+**Referência:** [Arch-Ts - Auth Patterns](../../arch-ts/references/react/server-components.md)
 
 ---
 
 ### [ ] 5. Input Validation
 **Verificar:**
-- Dados de formularios validados com Zod ou equivalente
+- Dados de formulários validados com Zod ou equivalente
 - Server Actions validam input antes de processar
-- Schemas compartilhados entre client e server quando possivel
-- File uploads com validacao de tipo e tamanho
+- Schemas compartilhados entre client e server quando possível
+- File uploads com validação de tipo e tamanho
 
-**Severidade tipica:** 🟠 High
-**Referencia:** [Arch-Ts - Validation](../../arch-ts/references/typescript/validation.md)
+**Severidade típica:** 🟠 High
+**Referência:** [Arch-Ts - Validation](../../arch-ts/references/typescript/type-system.md)
 
 ---
 
@@ -86,12 +86,12 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 ### [ ] 6. Semantic HTML
 **Verificar:**
 - `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<header>`, `<footer>` usados corretamente
-- `<button>` para acoes, `<a>` para navegacao (nunca `<div onClick>`)
-- Headings em ordem hierarquica (h1 > h2 > h3)
-- Lists (`<ul>`, `<ol>`) para conteudo em lista
+- `<button>` para ações, `<a>` para navegação (nunca `<div onClick>`)
+- Headings em ordem hierárquica (h1 > h2 > h3)
+- Lists (`<ul>`, `<ol>`) para conteúdo em lista
 
-**Severidade tipica:** 🟠 High
-**Referencia:** [Arch-Ts - Semantic HTML](../../arch-ts/references/accessibility/semantic-html.md)
+**Severidade típica:** 🟠 High
+**Referência:** [Arch-Ts - Semantic HTML](../../arch-ts/references/react/component-patterns.md)
 
 ---
 
@@ -99,26 +99,26 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 **Verificar:**
 - Elementos interativos customizados tem `role` e `aria-label`
 - Icons-only buttons tem `aria-label`
-- `aria-live` para conteudo dinamico que muda
+- `aria-live` para conteúdo dinâmico que muda
 - `aria-hidden="true"` em elementos decorativos
 - `aria-expanded`, `aria-selected` em menus e tabs
 
-**Severidade tipica:** 🟠 High (elementos interativos) / 🟡 Medium (decorativos)
-**Referencia:** [Arch-Ts - ARIA](../../arch-ts/references/accessibility/aria.md)
+**Severidade típica:** 🟠 High (elementos interativos) / 🟡 Medium (decorativos)
+**Referência:** [Arch-Ts - ARIA](../../arch-ts/references/react/component-patterns.md)
 
 ---
 
 ### [ ] 8. Keyboard Navigation
 **Verificar:**
-- Todos os elementos interativos acessiveis via Tab
-- Tab order logico (sem `tabIndex` > 0)
+- Todos os elementos interativos acessíveis via Tab
+- Tab order lógico (sem `tabIndex` > 0)
 - Escape fecha modais/dropdowns
 - Enter/Space ativa buttons
-- Arrow keys para navegacao em menus/tabs
+- Arrow keys para navegação em menus/tabs
 - Focus trap em modais
 
-**Severidade tipica:** 🟠 High
-**Referencia:** [Arch-Ts - Keyboard Navigation](../../arch-ts/references/accessibility/keyboard.md)
+**Severidade típica:** 🟠 High
+**Referência:** [Arch-Ts - Keyboard Navigation](../../arch-ts/references/react/component-patterns.md)
 
 ---
 
@@ -126,12 +126,12 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 **Verificar:**
 - Focus movido para modal quando abre
 - Focus retorna ao trigger quando modal fecha
-- Focus visivel (outline nao removido globalmente)
-- Skip links para conteudo principal
+- Focus visível (outline não removido globalmente)
+- Skip links para conteúdo principal
 - `autoFocus` usado com cuidado (pode confundir screen readers)
 
-**Severidade tipica:** 🟠 High (modais) / 🟡 Medium (geral)
-**Referencia:** [Arch-Ts - Focus Management](../../arch-ts/references/accessibility/focus.md)
+**Severidade típica:** 🟠 High (modais) / 🟡 Medium (geral)
+**Referência:** [Arch-Ts - Focus Management](../../arch-ts/references/react/component-patterns.md)
 
 ---
 
@@ -139,11 +139,11 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 **Verificar:**
 - Contrast ratio >= 4.5:1 para texto normal (WCAG AA)
 - Contrast ratio >= 3:1 para texto grande (>18px bold, >24px)
-- Informacao nao transmitida apenas por cor (icones, patterns, texto)
+- Informacao não transmitida apenas por cor (ícones, patterns, texto)
 - Dark mode com contrast adequado
 
-**Severidade tipica:** 🟡 Medium
-**Referencia:** [Arch-Ts - Color Contrast](../../arch-ts/references/accessibility/color.md)
+**Severidade típica:** 🟡 Medium
+**Referência:** [Arch-Ts - Color Contrast](../../arch-ts/references/styling/tailwind.md)
 
 ---
 
@@ -151,11 +151,11 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 **Verificar:**
 - Todas as imagens informativas tem `alt` descritivo
 - Imagens decorativas tem `alt=""`
-- Videos tem captions/subtitles quando possivel
-- SVGs acessiveis com `role="img"` e `aria-label`
+- Videos tem captions/subtitles quando possível
+- SVGs acessíveis com `role="img"` e `aria-label`
 
-**Severidade tipica:** 🟠 High (images informativas) / 🟢 Low (decorativas)
-**Referencia:** [Arch-Ts - Accessible Media](../../arch-ts/references/accessibility/media.md)
+**Severidade típica:** 🟠 High (images informativas) / 🟢 Low (decorativas)
+**Referência:** [Arch-Ts - Accessible Media](../../arch-ts/references/react/component-patterns.md)
 
 ---
 
@@ -165,63 +165,63 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 **Verificar:**
 - Sem imports de bibliotecas inteiras quando so precisa de uma funcao
 - Dynamic imports (`next/dynamic`, `React.lazy`) para componentes pesados
-- Tree-shaking funcionando (named imports, nao default de barrel files)
-- Sem dependencias duplicadas (verifique com `npm ls` ou bundle analyzer)
+- Tree-shaking funcionando (named imports, não default de barrel files)
+- Sem dependências duplicadas (verifique com `npm ls` ou bundle analyzer)
 
-**Severidade tipica:** 🟠 High (>50KB adicionados) / 🟡 Medium (<50KB)
-**Referencia:** [Arch-Ts - Bundle Optimization](../../arch-ts/references/performance/bundle.md)
+**Severidade típica:** 🟠 High (>50KB adicionados) / 🟡 Medium (<50KB)
+**Referência:** [Arch-Ts - Bundle Optimization](../../arch-ts/references/react/performance.md)
 
 ---
 
 ### [ ] 13. Render Optimization
 **Verificar:**
 - `React.memo` em componentes puros renderizados frequentemente
-- `useMemo` para computacoes caras
+- `useMemo` para computações caras
 - `useCallback` para callbacks passados como props
-- Keys estaveis em listas (nunca array index se a lista muda)
-- State no nivel correto (nao lifting desnecessario)
-- Sem state updates em cascata causando re-renders multiplos
+- Keys estáveis em listas (nunca array index se a lista muda)
+- State no nível correto (nao lifting desnecessário)
+- Sem state updates em cascata causando re-renders múltiplos
 
-**Severidade tipica:** 🟡 Medium / 🟠 High (listas grandes, tabelas)
-**Referencia:** [Arch-Ts - React Performance](../../arch-ts/references/react/performance.md)
+**Severidade típica:** 🟡 Medium / 🟠 High (listas grandes, tabelas)
+**Referência:** [Arch-Ts - React Performance](../../arch-ts/references/react/performance.md)
 
 ---
 
 ### [ ] 14. Images e Assets
 **Verificar:**
-- `next/image` usado em vez de `<img>` (otimizacao automatica)
-- Formatos modernos (WebP, AVIF) quando possivel
+- `next/image` usado em vez de `<img>` (otimização automática)
+- Formatos modernos (WebP, AVIF) quando possível
 - `loading="lazy"` para imagens abaixo do fold
 - `priority` em imagens LCP (hero, acima do fold)
 - `sizes` prop correta para responsive images
 
-**Severidade tipica:** 🟡 Medium / 🟠 High (imagens LCP)
-**Referencia:** [Arch-Ts - Image Optimization](../../arch-ts/references/nextjs/images.md)
+**Severidade típica:** 🟡 Medium / 🟠 High (imagens LCP)
+**Referência:** [Arch-Ts - Image Optimization](../../arch-ts/references/react/performance.md)
 
 ---
 
 ### [ ] 15. Data Fetching
 **Verificar:**
-- Data fetching no servidor quando possivel (Server Components)
+- Data fetching no servidor quando possível (Server Components)
 - `fetch` com `cache` e `revalidate` configurados corretamente
 - Sem waterfalls (parallel data fetching com `Promise.all`)
 - Loading states com Suspense boundaries
-- Streaming com React Server Components quando aplicavel
+- Streaming com React Server Components quando aplicável
 
-**Severidade tipica:** 🟠 High (waterfalls em paginas criticas) / 🟡 Medium
-**Referencia:** [Arch-Ts - Data Fetching](../../arch-ts/references/nextjs/data-fetching.md)
+**Severidade típica:** 🟠 High (waterfalls em paginas críticas) / 🟡 Medium
+**Referência:** [Arch-Ts - Data Fetching](../../arch-ts/references/react/server-components.md)
 
 ---
 
 ### [ ] 16. Core Web Vitals
 **Verificar:**
-- LCP: elemento principal renderiza rapido (sem bloqueios)
-- CLS: layouts estaveis (tamanhos definidos para images/ads/embeds)
-- INP: interacoes respondem rapido (<200ms)
-- Sem layout shifts causados por fonts, images, ou conteudo dinamico
+- LCP: elemento principal renderiza rápido (sem bloqueios)
+- CLS: layouts estáveis (tamanhos definidos para images/ads/embeds)
+- INP: interações respondem rápido (<200ms)
+- Sem layout shifts causados por fonts, images, ou conteúdo dinâmico
 
-**Severidade tipica:** 🟠 High
-**Referencia:** [Arch-Ts - Core Web Vitals](../../arch-ts/references/performance/core-web-vitals.md)
+**Severidade típica:** 🟠 High
+**Referência:** [Arch-Ts - Core Web Vitals](../../arch-ts/references/react/performance.md)
 
 ---
 
@@ -229,13 +229,13 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 
 ### [ ] 17. Component Tests
 **Verificar:**
-- Componentes criticos tem testes com Testing Library
-- Testes interagem como usuario (click, type, not implementation details)
-- Queries acessiveis usadas (`getByRole`, `getByLabelText`, nao `getByTestId`)
+- Componentes críticos tem testes com Testing Library
+- Testes interagem como usuário (click, type, not implementation details)
+- Queries acessíveis usadas (`getByRole`, `getByLabelText`, não `getByTestId`)
 - States testados (loading, error, empty, success)
 
-**Severidade tipica:** 🔴 Critical (componentes criticos sem testes) / 🟠 High (coverage <50%)
-**Referencia:** [Arch-Ts - Testing Library](../../arch-ts/references/testing/testing-library.md)
+**Severidade típica:** 🔴 Critical (componentes críticos sem testes) / 🟠 High (coverage <50%)
+**Referência:** [Arch-Ts - Testing Library](../../arch-ts/references/testing/testing-library.md)
 
 ---
 
@@ -245,20 +245,20 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 - Side effects testados (API calls, subscriptions)
 - Cleanup verificado (event listeners, timers)
 
-**Severidade tipica:** 🟠 High
-**Referencia:** [Arch-Ts - Hook Testing](../../arch-ts/references/testing/hooks.md)
+**Severidade típica:** 🟠 High
+**Referência:** [Arch-Ts - Hook Testing](../../arch-ts/references/testing/vitest.md)
 
 ---
 
 ### [ ] 19. E2E Tests
 **Verificar:**
-- Fluxos criticos cobertos (login, checkout, CRUD principal)
+- Fluxos críticos cobertos (login, checkout, CRUD principal)
 - Playwright ou Cypress configurado
-- Tests nao frageis (sem hard waits, usar locators estaveis)
+- Tests não frageis (sem hard waits, usar locators estáveis)
 - CI pipeline roda E2E
 
-**Severidade tipica:** 🟠 High (fluxos criticos) / 🟡 Medium
-**Referencia:** [Arch-Ts - E2E Testing](../../arch-ts/references/testing/e2e.md)
+**Severidade típica:** 🟠 High (fluxos críticos) / 🟡 Medium
+**Referência:** [Arch-Ts - E2E Testing](../../arch-ts/references/testing/playwright.md)
 
 ---
 
@@ -268,8 +268,8 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 - `toHaveNoViolations()` em component tests
 - Testes de keyboard navigation em componentes interativos
 
-**Severidade tipica:** 🟡 Medium
-**Referencia:** [Arch-Ts - A11y Testing](../../arch-ts/references/testing/accessibility.md)
+**Severidade típica:** 🟡 Medium
+**Referência:** [Arch-Ts - A11y Testing](../../arch-ts/references/testing/testing-library.md)
 
 ---
 
@@ -277,15 +277,15 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 
 ### [ ] 21. TypeScript Strict
 **Verificar:**
-- Sem `any` (use `unknown` se tipo e realmente desconhecido)
+- Sem `any` (use `unknown` se tipo é realmente desconhecido)
 - Sem `@ts-ignore` ou `@ts-expect-error` sem justificativa
 - Generics usados corretamente
-- Utility types usados onde apropriado (Partial, Pick, Omit, Record)
+- Utility types usados onde aprópriado (Partial, Pick, Omit, Record)
 - Discriminated unions para state machines
-- `satisfies` operator para validacao de tipos
+- `satisfies` operator para validação de tipos
 
-**Severidade tipica:** 🟡 Medium (`any` em locais isolados) / 🟠 High (`any` em interfaces publicas)
-**Referencia:** [Arch-Ts - TypeScript Strict](../../arch-ts/references/typescript/strict-mode.md)
+**Severidade típica:** 🟡 Medium (`any` em locais isolados) / 🟠 High (`any` em interfaces públicas)
+**Referência:** [Arch-Ts - TypeScript Strict](../../arch-ts/references/typescript/strict-config.md)
 
 ---
 
@@ -297,8 +297,8 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 - Composition sobre inheritance
 - Default exports para paginas, named exports para componentes
 
-**Severidade tipica:** 🟡 Medium / 🟠 High (componentes >300 linhas)
-**Referencia:** [Arch-Ts - Component Patterns](../../arch-ts/references/react/component-patterns.md)
+**Severidade típica:** 🟡 Medium / 🟠 High (componentes >300 linhas)
+**Referência:** [Arch-Ts - Component Patterns](../../arch-ts/references/react/component-patterns.md)
 
 ---
 
@@ -310,22 +310,22 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 - User-facing error messages claras
 - Sentry ou equivalente para error tracking
 
-**Severidade tipica:** 🟠 High (rotas sem error boundary) / 🟡 Medium
-**Referencia:** [Arch-Ts - Error Handling](../../arch-ts/references/react/error-handling.md)
+**Severidade típica:** 🟠 High (rotas sem error boundary) / 🟡 Medium
+**Referência:** [Arch-Ts - Error Handling](../../arch-ts/references/react/component-patterns.md)
 
 ---
 
 ### [ ] 24. Naming e Conventions
 **Verificar:**
-- Components: PascalCase (`UserProfile`, nao `userProfile`)
-- Hooks: `use` prefix (`useAuth`, nao `getAuth`)
+- Components: PascalCase (`UserProfile`, não `userProfile`)
+- Hooks: `use` prefix (`useAuth`, não `getAuth`)
 - Files: kebab-case ou match component name
 - Constants: UPPER_SNAKE_CASE
 - Types/Interfaces: PascalCase com prefixo descritivo
 - Boolean props: `is`, `has`, `should` prefix
 
-**Severidade tipica:** 🟡 Medium
-**Referencia:** [Arch-Ts - Naming Conventions](../../arch-ts/references/typescript/naming.md)
+**Severidade típica:** 🟡 Medium
+**Referência:** [Arch-Ts - Naming Conventions](../../arch-ts/references/typescript/patterns.md)
 
 ---
 
@@ -333,39 +333,39 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 
 ### [ ] 25. Server vs Client Components
 **Verificar:**
-- `"use client"` apenas onde necessario (interatividade, hooks, browser APIs)
-- Dados sensiveis apenas em Server Components
+- `"use client"` apenas onde necessário (interatividade, hooks, browser APIs)
+- Dados sensíveis apenas em Server Components
 - Props serializaveis entre Server e Client Components
-- Nao passando funcoes como props de Server para Client Components
+- Não passando funções como props de Server para Client Components
 
-**Severidade tipica:** 🟠 High (`"use client"` desnecessario em arvore grande) / 🟡 Medium
-**Referencia:** [Arch-Ts - Server/Client Boundary](../../arch-ts/references/nextjs/server-client-boundary.md)
+**Severidade típica:** 🟠 High (`"use client"` desnecessário em arvore grande) / 🟡 Medium
+**Referência:** [Arch-Ts - Server/Client Boundary](../../arch-ts/references/react/server-components.md)
 
 ---
 
 ### [ ] 26. State Management
 **Verificar:**
-- State local quando possivel (useState, useReducer)
+- State local quando possível (useState, useReducer)
 - Context para state compartilhado em arvore pequena
 - External store (Zustand, Jotai) para state global complexo
 - URL state para filtros/paginacao (nuqs, useSearchParams)
-- Sem prop drilling excessivo (>3 niveis)
+- Sem prop drilling excessivo (>3 níveis)
 
-**Severidade tipica:** 🟡 Medium / 🟠 High (state management errado em escala)
-**Referencia:** [Arch-Ts - State Management](../../arch-ts/references/react/state-management.md)
+**Severidade típica:** 🟡 Medium / 🟠 High (state management errado em escala)
+**Referência:** [Arch-Ts - State Management](../../arch-ts/references/state/architecture.md)
 
 ---
 
 ### [ ] 27. Data Fetching Patterns
 **Verificar:**
-- Server Components para data fetching estatico/SSR
-- React Server Actions para mutacoes
+- Server Components para data fetching estático/SSR
+- React Server Actions para mutações
 - SWR/TanStack Query para client-side data fetching com cache
-- Sem fetch em useEffect quando Server Component e possivel
+- Sem fetch em useEffect quando Server Component e possível
 - Loading states (Suspense, loading.tsx)
 
-**Severidade tipica:** 🟠 High (fetch em useEffect desnecessario) / 🟡 Medium
-**Referencia:** [Arch-Ts - Data Fetching Patterns](../../arch-ts/references/nextjs/data-fetching.md)
+**Severidade típica:** 🟠 High (fetch em useEffect desnecessário) / 🟡 Medium
+**Referência:** [Arch-Ts - Data Fetching Patterns](../../arch-ts/references/react/server-components.md)
 
 ---
 
@@ -374,22 +374,22 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 ### [ ] 28. Tailwind e Design System
 **Verificar:**
 - Classes Tailwind consistentes (nao misturar com CSS modules sem razao)
-- Design tokens usados (cores do theme, nao hex hardcoded)
+- Design tokens usados (cores do theme, não hex hardcoded)
 - Responsive design com breakpoints corretos (sm, md, lg, xl)
-- Dark mode usando `dark:` variant quando aplicavel
-- Spacing consistente (usar scale: 1, 2, 3, 4, nao valores arbitrarios)
+- Dark mode usando `dark:` variant quando aplicável
+- Spacing consistente (usar scale: 1, 2, 3, 4, não valores arbitrários)
 
-**Severidade tipica:** 🟢 Low (inconsistencias menores) / 🟡 Medium (design system violation)
-**Referencia:** [Arch-Ts - Styling Patterns](../../arch-ts/references/styling/tailwind.md)
+**Severidade típica:** 🟢 Low (inconsistencias menores) / 🟡 Medium (design system violation)
+**Referência:** [Arch-Ts - Styling Patterns](../../arch-ts/references/styling/tailwind.md)
 
 ---
 
-## Resumo Rapido
+## Resumo Rápido
 
 **Ordem de prioridade durante review:**
 
-1. **Security** (checks 1-5) -> Maxima prioridade
-2. **Accessibility** (checks 6-11) -> Compliance e inclusao
+1. **Security** (checks 1-5) -> Máxima prioridade
+2. **Accessibility** (checks 6-11) -> Compliance e inclusão
 3. **Performance** (checks 12-16) -> Core Web Vitals e UX
 4. **Testing** (checks 17-20) -> Coverage e qualidade
 5. **Code Quality** (checks 21-24) -> Conformidade com arch-ts skill
@@ -400,7 +400,7 @@ Checklist de code review para TypeScript/React/Next.js. Cada item aponta para a 
 
 ## Ferramentas de Apoio
 
-Algumas verificacoes podem ser automatizadas:
+Algumas verificações podem ser automatizadas:
 ```bash
 # Type checking
 npx tsc --noEmit
@@ -430,17 +430,17 @@ npx playwright test
 npx tsc --noEmit --strict 2>&1 | wc -l
 ```
 
-**Referencia completa:** [Arch-Ts - Tooling](../../arch-ts/references/tooling/setup.md)
+**Referencia completa:** [Arch-Ts - Tooling](../../arch-ts/references/tooling/biome.md)
 
 ---
 
 ## Notas Importantes
 
-**Este checklist e um guia, nao uma regra rigida:**
+**Este checklist é um guia, não uma regra rígida:**
 - Use bom senso baseado no contexto do projeto
-- Severidades sao indicativas, nao absolutas
-- Consulte sempre a arch-ts skill para padroes detalhados
+- Severidades sao indicativas, não absolutas
+- Consulte sempre a arch-ts skill para padrões detalhados
 - Adapte para o contexto (startup vs enterprise, prototipo vs producao)
 
-**Para decisao final de aprovacao:**
-Consulte a secao "Decisao Final" no SKILL.md principal da review-ts.
+**Para decisão final de aprovação:**
+Consulte a seção "Decisão Final" no SKILL.md principal da review-ts.

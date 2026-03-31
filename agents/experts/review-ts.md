@@ -11,7 +11,7 @@ model: opus
 color: orange
 permissionMode: bypassPermissions
 isolation: worktree
-skills: review-ts, arch-ts, github
+skills: review-ts, arch-ts, frontend-design, github
 ---
 
 # Review-Ts Agent
