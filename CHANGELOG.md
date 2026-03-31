@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 - `.mcp.json.example` — template with all MCP server configs and env var placeholders
+- `isolation: worktree` enforced on all 9 agents — every agent runs in an isolated git worktree
 
 ### Removed
 - `mcp/github-server/apps.json` — contained hardcoded credentials, replaced by env vars
