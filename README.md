@@ -220,6 +220,7 @@ Agent (oracle, dev-py, ...)
 │  github_create_pr()    │ ← Bot identity (oracle-zeroone)
 │  github_create_issue() │ ← Multi-app: each agent has its own App
 │  github_add_comment()  │ ← JWT → installation token auth
+│  github_merge_pr()     │ ← Merge with merge/squash/rebase
 │  github_close_pr()     │
 │  github_list_issues()  │
 │                        │

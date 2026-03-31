@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Debater agent: replaced hardcoded personal paths with `$HOME` env var
 
 ### Added
+- `github_merge_pr` tool in GitHub MCP server — merge PRs via bot identity with merge/squash/rebase support
 - Frontend ecosystem: 3 new skills + 2 new expert agents (44 files, ~15,300 lines)
   - **arch-ts** skill — TypeScript/Frontend architecture: type system, React patterns, RSC, state management, testing, tooling (19 reference files)
   - **review-ts** skill — Frontend code review: templates, checklist (28 checks), severity criteria, accessibility + styling categories (7 files)
