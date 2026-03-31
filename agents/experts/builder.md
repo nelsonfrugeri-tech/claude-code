@@ -4,7 +4,7 @@ permissionMode: bypassPermissions
 isolation: worktree
 description: |
   Agent builder que sobe toda infraestrutura local do projeto automaticamente.
-  Analisa context.md, sobe dependências via Docker (mongo, redis, postgres),
+  Analisa contexto do projeto via Mem0, sobe dependências via Docker (mongo, redis, postgres),
   verifica .env, instala deps, sobe API/Frontend, e testa tudo com curl e comandos.
 trigger_patterns:
   - /builder
