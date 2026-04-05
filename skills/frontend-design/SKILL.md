@@ -14,11 +14,6 @@ description: |
 Esta skill é a **biblioteca de conhecimento** para design frontend estado da arte (2026).
 Ela complementa a `arch-ts` skill (arquitetura tecnica) com a camada de **taste e elegancia**.
 
-**Quem usa esta skill:**
-- Agent `dev-ts` -> ao construir interfaces bonitas e acessíveis
-- Agent `review-ts` -> ao revisar qualidade visual e UX
-- Voce diretamente -> quando precisar de referencia de design
-
 **O que esta skill contem:**
 - Design systems (headless + Tailwind + shadcn/ui)
 - Color theory (OKLCH, semantic tokens, dark mode)
@@ -38,18 +33,16 @@ Ela complementa a `arch-ts` skill (arquitetura tecnica) com a camada de **taste 
 
 ---
 
-## Filosofia
+## Quality Criteria
 
-### Design e Engineering sao inseparaveis
+Every interface must be:
+1. **Accessible** -- WCAG 2.2 AA minimum, APCA for contrast
+2. **Performant** -- 60fps animations, lazy loading, optimized images
+3. **Consistent** -- design tokens, not ad-hoc values
+4. **Responsive** -- container queries > media queries
+5. **Inclusive** -- prefers-reduced-motion, prefers-color-scheme, focus-visible
 
-**Belo NÃO e suficiente.** Uma interface deve ser:
-1. **Acessivel** — WCAG 2.2 AA minimo, APCA para contraste
-2. **Performante** — 60fps animations, lazy loading, optimized images
-3. **Consistente** — design tokens, not ad-hoc values
-4. **Responsiva** — container queries > media queries
-5. **Inclusiva** — prefers-reduced-motion, prefers-color-scheme, focus-visible
-
-### Princípios Fundamentais
+## Principles
 
 **1. Tokens, não valores magicos**
 - Toda cor, spacing, font-size vem de um token

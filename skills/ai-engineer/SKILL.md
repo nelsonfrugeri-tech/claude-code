@@ -17,10 +17,10 @@ description: |
 Esta skill é a **biblioteca de conhecimento** para AI/ML engineering moderno em Python (2026).
 Ela complementa a `arch-py` skill com patterns específicos de AI systems.
 
-**Quem usa esta skill:**
-- Agent `dev-py` → ao desenvolver features com LLMs, RAG, agents
-- Agent `review-py` → ao revisar código que usa AI systems
-- Você diretamente → quando precisar de referência de patterns AI
+**Use cases:**
+- Developing features with LLMs, RAG, agents
+- Reviewing code that uses AI systems
+- Reference for AI engineering patterns
 
 **O que esta skill contém:**
 - LLM integration patterns (Anthropic, OpenAI, Bedrock, Gemini, Meta)
@@ -40,16 +40,7 @@ Ela complementa a `arch-py` skill com patterns específicos de AI systems.
 
 ---
 
-## Filosofia
-
-### AI Engineering ≠ Prompt Engineering
-
-**AI Engineering é Software Engineering aplicado a sistemas de AI:**
-- Requer TUDO de `arch-py` (types, testing, async, architecture)
-- PLUS patterns AI-specific (prompts, RAG, agents, observability)
-- Foco em **systems thinking**, não só prompts bonitos
-
-### Princípios Fundamentais
+## Principles
 
 **1. Determinismo onde possível**
 - Minimize non-determinism desnecessário
@@ -233,11 +224,11 @@ Ela complementa a `arch-py` skill com patterns específicos de AI systems.
 
 ## Padrões de Uso
 
-### Dev-Py usando AI-Engineer
+### RAG System Example
 
-**Cenário:** Usuário pede "cria um sistema RAG que responde perguntas sobre documentação"
+**Scenario:** Build a RAG system for documentation Q&A
 
-**Dev-py consulta:**
+**References to consult:**
 1. `ai-engineer/references/rag/architecture.md` → escolhe pattern RAG
 2. `ai-engineer/references/rag/chunking-strategies.md` → decide chunking
 3. `ai-engineer/references/vector-db/qdrant.md` → setup Qdrant
@@ -289,9 +280,7 @@ Ela complementa a `arch-py` skill com patterns específicos de AI systems.
    - Auto-review contra ambas skills
 ```
 
-### Review-Py usando AI-Engineer
-
-**Checklist expandido para AI code:**
+### AI Code Review Checklist
 
 ```markdown
 ## 🔒 Security (AI-specific)
