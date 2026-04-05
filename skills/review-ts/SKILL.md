@@ -2,7 +2,7 @@
 name: review-ts
 description: |
   Baseline de conhecimento para code review TypeScript/Frontend: templates de comentários, checklist de verificação,
-  critérios de severidade e decisão. Reference for review standards and quality.
+  critérios de severidade e decisão. Referência de padrões e qualidade de review.
   Integra com arch-ts skill para referenciar best practices técnicas.
   Use quando: (1) Precisar de templates de comentários frontend, (2) Consultar checklist de review TS/React, (3) Classificar severidade de issues.
   Triggers: review-ts skill, templates de review frontend, critérios de severidade frontend.
@@ -12,8 +12,7 @@ description: |
 
 ## Propósito
 
-Esta skill é uma **biblioteca de conhecimento** para code review TypeScript/Frontend. Ela NÃO executa reviews,
-It provides standards, templates, and criteria for systematic TypeScript/Frontend code reviews.
+Esta skill é uma **biblioteca de conhecimento** para code review TypeScript/Frontend. Provê padrões, templates e critérios para reviews sistemáticos de código TypeScript/Frontend.
 
 **O que esta skill contem:**
 - Templates de comentários por severidade e categoria
@@ -439,7 +438,7 @@ review-ts/
 
 ## Guia Rápido: Quando Consultar Cada Arquivo
 
-### During Reviews
+### Durante Reviews
 
 | Momento | Arquivo | O que consultar |
 |---------|---------|-----------------|

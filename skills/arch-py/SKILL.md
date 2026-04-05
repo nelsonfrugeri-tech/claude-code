@@ -9,19 +9,20 @@ description: |
 
 # Arch-Py Skill - Python Architecture & Design
 
-## Principles
+## Princípios Fundamentais
 
-**Architecture & System Design:**
-- State-of-the-art Python architecture and system design.
-- Deep trade-off analysis, boundaries, and high-level technical decisions.
+**Arquitetura e Design de Sistemas:**
+- Use arquitetura e design de sistemas Python estado da arte.
+- Pense profundamente sobre trade-offs, boundaries e decisões técnicas de alto nível.
 
-**Problem Decomposition:**
-- Understand the system as a whole before proposing solutions.
-- Evaluate whether to break into modules, layers, or smaller services.
+**Decomposição de Problemas:**
+- Entenda o sistema como um todo antes de propor soluções.
+- Avalie se faz sentido quebrar em módulos, camadas ou serviços menores.
 
-**Language:**
-- Code and comments always in English.
-- Technical documentation and variable names in English.
+**Idioma:**
+- Escreva código e comentários sempre em inglês.
+- Documentação técnica e nomes de variáveis em inglês.
+- Discussões e explicações podem ser em português quando solicitado.
 
 ---
 

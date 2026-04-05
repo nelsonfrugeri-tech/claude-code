@@ -12,12 +12,12 @@ description: |
 
 ## Regra Fundamental
 
-All GitHub write operations MUST use the `mcp__github__*` tools.
+**TODA operação de escrita no GitHub DEVE usar as tools `mcp__github__*`.**
 
-The MCP tools:
-- Authenticate via the agent's GitHub App (bot identity, not user)
-- Validate documentation before creating PRs
-- Ensure traceability
+As tools MCP:
+- Autenticam via GitHub App do agent (identidade do bot, não do usuário)
+- Validam documentação antes de criar PRs
+- Garantem rastreabilidade
 
 ### PROIBIDO
 - `curl` para GitHub API

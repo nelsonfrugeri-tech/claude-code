@@ -17,10 +17,10 @@ description: |
 Esta skill é a **biblioteca de conhecimento** para AI/ML engineering moderno em Python (2026).
 Ela complementa a `arch-py` skill com patterns específicos de AI systems.
 
-**Use cases:**
-- Developing features with LLMs, RAG, agents
-- Reviewing code that uses AI systems
-- Reference for AI engineering patterns
+**Casos de uso:**
+- Desenvolver features com LLMs, RAG, agents
+- Revisar código que usa AI systems
+- Referência de patterns AI
 
 **O que esta skill contém:**
 - LLM integration patterns (Anthropic, OpenAI, Bedrock, Gemini, Meta)
@@ -40,7 +40,7 @@ Ela complementa a `arch-py` skill com patterns específicos de AI systems.
 
 ---
 
-## Principles
+## Princípios Fundamentais
 
 **1. Determinismo onde possível**
 - Minimize non-determinism desnecessário
@@ -224,11 +224,11 @@ Ela complementa a `arch-py` skill com patterns específicos de AI systems.
 
 ## Padrões de Uso
 
-### RAG System Example
+### Exemplo: Sistema RAG
 
-**Scenario:** Build a RAG system for documentation Q&A
+**Cenário:** Criar um sistema RAG para responder perguntas sobre documentação
 
-**References to consult:**
+**Referências a consultar:**
 1. `ai-engineer/references/rag/architecture.md` → escolhe pattern RAG
 2. `ai-engineer/references/rag/chunking-strategies.md` → decide chunking
 3. `ai-engineer/references/vector-db/qdrant.md` → setup Qdrant
@@ -280,7 +280,7 @@ Ela complementa a `arch-py` skill com patterns específicos de AI systems.
    - Auto-review contra ambas skills
 ```
 
-### AI Code Review Checklist
+### Checklist de Review para código AI
 
 ```markdown
 ## 🔒 Security (AI-specific)

@@ -2,7 +2,7 @@
 name: review-py
 description: |
   Baseline de conhecimento para code review Python: templates de comentários, checklist de verificação,
-  critérios de severidade e decisão. Reference for review standards and quality.
+  critérios de severidade e decisão. Referência de padrões e qualidade de review.
   Integra com arch-py skill para referenciar best practices técnicas.
   Use quando: (1) Precisar de templates de comentários, (2) Consultar checklist de review, (3) Classificar severidade de issues.
   Triggers: review-py skill, templates de review, critérios de severidade.
@@ -12,8 +12,7 @@ description: |
 
 ## Propósito
 
-Esta skill é uma **biblioteca de conhecimento** para code review Python. Ela NÃO executa reviews,
-It provides standards, templates, and criteria for systematic Python code reviews.
+Esta skill é uma **biblioteca de conhecimento** para code review Python. Provê padrões, templates e critérios para reviews sistemáticos de código Python.
 
 **O que esta skill contém:**
 - Templates de comentários por severidade e categoria
@@ -423,7 +422,7 @@ review-py/
 
 ## Guia Rápido: Quando Consultar Cada Arquivo
 
-### During Reviews
+### Durante Reviews
 
 | Momento | Arquivo | O que consultar |
 |---------|---------|-----------------|

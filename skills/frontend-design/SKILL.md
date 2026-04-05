@@ -33,16 +33,16 @@ Ela complementa a `arch-ts` skill (arquitetura tecnica) com a camada de **taste 
 
 ---
 
-## Quality Criteria
+## Critérios de Qualidade
 
-Every interface must be:
-1. **Accessible** -- WCAG 2.2 AA minimum, APCA for contrast
-2. **Performant** -- 60fps animations, lazy loading, optimized images
-3. **Consistent** -- design tokens, not ad-hoc values
-4. **Responsive** -- container queries > media queries
-5. **Inclusive** -- prefers-reduced-motion, prefers-color-scheme, focus-visible
+Toda interface deve ser:
+1. **Acessível** — WCAG 2.2 AA mínimo, APCA para contraste
+2. **Performante** — 60fps animations, lazy loading, optimized images
+3. **Consistente** — design tokens, not ad-hoc values
+4. **Responsiva** — container queries > media queries
+5. **Inclusiva** — prefers-reduced-motion, prefers-color-scheme, focus-visible
 
-## Principles
+## Princípios Fundamentais
 
 **1. Tokens, não valores magicos**
 - Toda cor, spacing, font-size vem de um token

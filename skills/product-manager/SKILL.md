@@ -11,19 +11,19 @@ description: |
 
 # Product Manager Skill - Technical Product/Platform Management
 
-## Principles
+## Princípios Fundamentais
 
-### Product & Value
-- Focus on the **user problem**, not the technical solution
-- Every feature needs a clear **"why"** connected to business value
-- Success metrics defined **before** development starts
-- Data-driven decisions when data is available, clear hypotheses when not
+### Produto e Valor
+- Foco no **problema do usuário**, não na solução técnica
+- Toda feature deve ter um **"por quê"** claro conectado a valor de negócio
+- Métricas de sucesso definidas **antes** de começar o desenvolvimento
+- Decisões baseadas em dados quando disponíveis, em hipóteses claras quando não
 
-### Communication & Alignment
-- Clear documentation accessible to technical and non-technical stakeholders
-- Product decisions documented with context, alternatives, and justification
-- Project status always visible and up to date
-- Short feedback loops with development team and stakeholders
+### Comunicação e Alinhamento
+- Documentação clara e acessível para stakeholders técnicos e não-técnicos
+- Decisões de produto documentadas com contexto, alternativas e justificativa
+- Status do projeto sempre visível e atualizado
+- Feedback loops curtos com time de desenvolvimento e stakeholders
 
 ---
 
