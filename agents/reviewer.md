@@ -7,8 +7,6 @@ tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 disallowedTools: Write, Edit
 model: sonnet
 color: yellow
-permissionMode: default
-isolation: worktree
 ---
 
 # Reviewer
