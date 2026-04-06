@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **validate_memory_type function** (test/pr56-hook-validation) — Adds `validate_memory_type(memory_type: object) -> bool` to `mcp/mem0-server/server.py`. Returns `True` only for the 7 canonical memory types defined in `VALID_MEMORY_TYPES` (decision, pattern, outcome, feedback, blocker, requirement, context). Strict: case-sensitive, no whitespace tolerance, rejects non-string inputs without raising.
+- **Test suite for validate_memory_type** — `mcp/mem0-server/tests/test_validate_type.py` with 27 parametrized tests covering valid types, invalid strings (old taxonomy, case variants, whitespace), and non-string inputs (None, int, bool, list, dict, tuple).
+
 ### Fixed
 - **pr-docs-check.sh false positive on prose and echo** (#3) — `grep -qE '(gh pr create|/repos/.*/pulls)'` matched substrings anywhere in the command, causing false positives when Python subprocess or `echo` commands contained the substring. The regex now matches only `^\s*gh\s+pr\s+create\b` (command start). The `/repos/.*/pulls` pattern was removed — once gh CLI writes are blocked by deny rules, this hook only catches edge cases where the substring appears in unrelated commands.
 
