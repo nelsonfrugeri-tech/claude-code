@@ -224,7 +224,7 @@ Agent (oracle, neo, trinity, ...)
 | **neo** | `neo-zeroone` | Active |
 | **trinity** | — | Pending (uses fallback) |
 | **morpheus** | — | Pending (uses fallback) |
-| **the_architect** | — | Pending (uses fallback) |
+| **the_architect** | `the-architect-zeroone` | Active |
 | **cypher** | — | Pending (uses fallback) |
 
 **Rules enforced by the `github` skill:**
