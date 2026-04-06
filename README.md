@@ -205,6 +205,16 @@ mem0_delete()          ← Remove outdated memories
 | `progress` | Coordination: status updates | "MCP server 80% complete" |
 | `conflict` | Coordination: collision detected | "Two agents editing settings.json" |
 
+### Validated Entity Types
+
+`mem0_store` enforces a formal taxonomy via `VALID_MEMORY_TYPES`. Only these 7 types are accepted:
+
+```
+decision · pattern · outcome · feedback · blocker · requirement · context
+```
+
+Calls with any other type are rejected with a clear error listing the valid options. `mem0_recall_context` accepts an optional `memory_types` parameter (comma-separated) to filter retrieval to specific types. Backward compatible — memories stored before this change remain readable.
+
 ---
 
 ## GitHub Integration (MCP)
