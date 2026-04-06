@@ -17,7 +17,7 @@ Agents live in `~/.claude/agents/` (flat directory, no subdirectories).
 | **neo** | Pragmatic, fast, MVP-first. YAGNI. | First draft, MVPs, rapid iteration, discovery |
 | **trinity** | Executor, surgical, closer. | Precise execution, finalize work, delivery |
 | **morpheus** | Socratic, questioner, mentor. | Debates, exploration, questioning, mentoring |
-| **oracle** | Holistic, cross-project vision. Living memory. | Coordination, context, memory, ecosystem management |
+| **oracle** | Holistic, cross-project vision. Living memory. **Entry point for all feature work.** | Feature orchestration, discovery, planning, distribution, monitoring, review, merge |
 | **cypher** | Pure SRE. Numbers and tables, not essays. | Infra ops, monitoring, incident response, health checks |
 
 ### Adversarial Review Flow
