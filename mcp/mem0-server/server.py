@@ -40,6 +40,17 @@ VALID_MEMORY_TYPES: frozenset[str] = frozenset({
     "context",
 })
 
+
+def validate_memory_type(memory_type: object) -> bool:
+    """Return True if memory_type is a recognised memory category, False otherwise.
+
+    Validation is strict: type-check + exact case-sensitive membership check.
+    """
+    if not isinstance(memory_type, str):
+        return False
+    return memory_type in VALID_MEMORY_TYPES
+
+
 # ---------------------------------------------------------------------------
 # Configuration (all via env vars)
 # ---------------------------------------------------------------------------
