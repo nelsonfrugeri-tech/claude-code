@@ -23,16 +23,16 @@ BASE=$(git -C "$ROOT" symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's
 # Files changed vs base branch
 CHANGED=$(git -C "$ROOT" diff --name-only "$BASE"...HEAD 2>/dev/null || git -C "$ROOT" diff --name-only HEAD~1 2>/dev/null || echo "")
 
-# Check for QA evidence in changed files or in repo root
+# Check for QA evidence in changed files
 QA_IN_DIFF=$(echo "$CHANGED" | grep -iE '(qa-report|test-results|qa-evidence|\.test-output)' || true)
 
 # Also check if a QA evidence file exists anywhere under ROOT
-QA_ON_DISK=$(find "$ROOT" -maxdepth 3 \
+QA_ON_DISK=$(find "$ROOT" -maxdepth 4 \( \
   -name "qa-report.md" -o \
   -name "qa-report.txt" -o \
   -name "test-results.*" -o \
   -name "qa-evidence.*" -o \
-  -name "*.test-output.*" 2>/dev/null | head -1)
+  -name "*.test-output.*" \) 2>/dev/null | head -1)
 
 if [ -n "$QA_IN_DIFF" ] || [ -n "$QA_ON_DISK" ]; then
   cat <<EOF
