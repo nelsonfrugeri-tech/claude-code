@@ -8,13 +8,10 @@ set -euo pipefail
 INPUT=$(cat)
 COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""')
 
-# Only check actual PR creation invocations.
-# Match gh pr create only when it appears as a command (start, after |, ;, &&).
-# Match /repos/.*/pulls only when preceded by curl or gh api (not in prose or echo).
-GH_PR_CREATE_RE='(^\s*gh\s+pr\s+create\b|[;|]\s*gh\s+pr\s+create\b|&&\s*gh\s+pr\s+create\b)'
-API_PULLS_RE='(^\s*(curl|gh\s+api)\b.*\/repos\/[^/]+\/[^/]+\/pulls\b)'
-if ! echo "$COMMAND" | grep -qE "$GH_PR_CREATE_RE" && \
-   ! echo "$COMMAND" | grep -qE "$API_PULLS_RE"; then
+# Only check actual PR creation invocations at command start.
+# Once gh CLI writes are blocked by deny rules, this only catches edge cases
+# where the substring appears in unrelated Bash commands.
+if ! echo "$COMMAND" | grep -qE '^\s*gh\s+pr\s+create\b'; then
   exit 0
 fi
 

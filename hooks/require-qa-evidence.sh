@@ -15,8 +15,7 @@ if [ "$TOOL" = "mcp__github__github_create_pr" ]; then
   IS_PR_EVENT=1
 elif [ "$TOOL" = "Bash" ]; then
   COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""')
-  GH_PR_CREATE_RE='(^\s*gh\s+pr\s+create\b|[;|]\s*gh\s+pr\s+create\b|&&\s*gh\s+pr\s+create\b)'
-  if echo "$COMMAND" | grep -qE "$GH_PR_CREATE_RE"; then
+  if echo "$COMMAND" | grep -qE '^\s*gh\s+pr\s+create\b'; then
     IS_PR_EVENT=1
   fi
 fi

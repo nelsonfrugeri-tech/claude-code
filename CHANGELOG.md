@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Fixed
-- **pr-docs-check.sh false positive on prose and echo** (#3) — `grep -qE '(gh pr create|/repos/.*/pulls)'` matched substrings anywhere in the command, causing false positives when `gh issue create` body text mentioned "gh pr create", or when commands like `echo "gh pr create"` were used. The regex now anchors to actual command invocation positions: start of command, after `;`, `|`, or `&&`. The `/repos/.*/pulls` pattern is similarly constrained to match only when preceded by `curl` or `gh api`.
+- **pr-docs-check.sh false positive on prose and echo** (#3) — `grep -qE '(gh pr create|/repos/.*/pulls)'` matched substrings anywhere in the command, causing false positives when Python subprocess or `echo` commands contained the substring. The regex now matches only `^\s*gh\s+pr\s+create\b` (command start). The `/repos/.*/pulls` pattern was removed — once gh CLI writes are blocked by deny rules, this hook only catches edge cases where the substring appears in unrelated commands.
 
 ### Added
 - **require-qa-evidence.sh Bash matcher** (#1) — The QA evidence hook previously only triggered on `mcp__github__github_create_pr` tool calls. Agents using `gh pr create` via the Bash tool bypassed the check entirely. The hook now detects both: MCP tool calls (existing behavior) and Bash `gh pr create` invocations using the same robust regex. Registered as a second Bash PreToolUse matcher in `settings.json`.
