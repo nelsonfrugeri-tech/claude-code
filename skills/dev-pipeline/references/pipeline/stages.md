@@ -38,7 +38,7 @@ Nenhum estágio é opcional. Nenhum estágio pode ser pulado.
 - Refatorar o que for necessário: nomes ruins, funções longas, duplicação
 - Validar boas práticas: SOLID, DRY, separação de responsabilidades
 - Reler o diff completo como se fosse um reviewer externo
-- Garantir que a Description of Done está atendida
+- Garantir que a Definition of Done está atendida
 
 **Critério de conclusão:**
 - Checklist de self-judge preenchido e sem itens em aberto

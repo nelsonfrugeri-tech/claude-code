@@ -1,12 +1,9 @@
 ---
 name: dev-pipeline
 description: |
-  Pipeline obrigatório de desenvolvimento que todo dev agent segue, do código ao PR aprovado.
-  Cobre os 9 estágios sequenciais: CODE, SELF-JUDGE, QA, OPEN PR, REVIEW, FIX, SELF-JUDGE, QA, RE-REVIEW.
-  Define quality gates, critérios de entrada e saída por estágio, protocolo de handoff entre dev e reviewer,
-  checklist de self-judge, protocolo QA com setup/teardown, e o loop fix→re-review até aprovação ou escalação.
-  Use quando: (1) Iniciar qualquer tarefa de desenvolvimento, (2) Preparar entrega para review,
-  (3) Responder a comentários de review, (4) Verificar se uma tarefa está pronta para PR.
+  Pipeline obrigatório de desenvolvimento: CODE → SELF-JUDGE → QA → PR → REVIEW → FIX loop.
+  Quality gates, handoff dev↔reviewer, checklist self-judge, protocolo QA, templates.
+  Use quando: iniciar dev, preparar review, responder comments, verificar readiness.
   Triggers: /dev-pipeline, pipeline, workflow, stages, self-judge, QA step, review handoff, fix loop.
 ---
 
