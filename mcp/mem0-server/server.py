@@ -27,6 +27,20 @@ from qdrant_client.models import (
 mcp = FastMCP(name="mem0")
 
 # ---------------------------------------------------------------------------
+# Memory entity types taxonomy
+# ---------------------------------------------------------------------------
+
+VALID_MEMORY_TYPES = {
+    "decision",     # Technical decision + rationale
+    "pattern",      # Convention/standard defined for the project
+    "outcome",      # Result of a task/action
+    "feedback",     # User correction on agent behavior
+    "blocker",      # Impediment found
+    "requirement",  # Functional/non-functional requirement
+    "context",      # Project/team contextual fact
+}
+
+# ---------------------------------------------------------------------------
 # Configuration (all via env vars)
 # ---------------------------------------------------------------------------
 
@@ -85,7 +99,7 @@ def embed(text: str) -> list[float]:
 @mcp.tool()
 async def mem0_store(
     content: str,
-    memory_type: str = "general",
+    memory_type: str = "context",
     project: str = "",
     tags: str = "",
     user_id: str = "",
@@ -100,14 +114,21 @@ async def mem0_store(
 
     Args:
         content: The memory content to store. Should be concise, factual, and self-contained.
-        memory_type: Category — decision, fact, preference, procedure, outcome (primary types),
-            or coordination types: task_claim, blocker, progress, conflict.
+        memory_type: Category — must be one of: decision, pattern, outcome, feedback,
+            blocker, requirement, context.
         project: Project name (empty for cross-project memories).
         tags: Comma-separated tags (e.g. "architecture,python").
         user_id: Memory scope — use three-level format: "team", "team:{project}",
             or "{agent}:{project}". Defaults to MEM0_USER_ID env var.
     """
     uid = user_id or DEFAULT_USER
+
+    if memory_type not in VALID_MEMORY_TYPES:
+        return json.dumps({
+            "status": "error",
+            "error": f"Invalid memory_type '{memory_type}'.",
+            "valid_types": sorted(VALID_MEMORY_TYPES),
+        })
 
     try:
         vector = embed(content)
@@ -189,8 +210,8 @@ async def mem0_search(
 
     Args:
         query: Natural language search query.
-        memory_type: Filter by type — feedback, project, reference, decision, procedural, general,
-            task_claim, blocker, progress, conflict (coordination types for multi-agent).
+        memory_type: Filter by type — one of: decision, pattern, outcome, feedback,
+            blocker, requirement, context. Leave empty to search all types.
         project: Filter by project name.
         limit: Maximum results (default 10).
         user_id: Filter by owner (defaults to MEM0_USER_ID env var).
@@ -357,6 +378,7 @@ async def mem0_recall_context(
     agent_limit: int = 5,
     project_limit: int = 5,
     team_limit: int = 3,
+    memory_types: str = "",
 ) -> str:
     """Retrieve context from all three memory scopes in one call.
 
@@ -370,6 +392,9 @@ async def mem0_recall_context(
         agent_limit: Max results from agent scope (default 5).
         project_limit: Max results from project scope (default 5).
         team_limit: Max results from team scope (default 3).
+        memory_types: Optional comma-separated list of types to filter retrieval
+            (e.g. "decision,outcome"). Valid types: decision, pattern, outcome,
+            feedback, blocker, requirement, context. Leave empty for all types.
     """
     scopes = [
         (f"{agent}:{project}", agent_limit, "agent"),
@@ -377,16 +402,29 @@ async def mem0_recall_context(
         ("team", team_limit, "team"),
     ]
 
+    # Build optional type filter conditions
+    type_filter_conditions: list[FieldCondition] = []
+    if memory_types:
+        requested = [t.strip() for t in memory_types.split(",") if t.strip()]
+        for t in requested:
+            type_filter_conditions.append(
+                FieldCondition(key="type", match=MatchValue(value=t))
+            )
+
     try:
         vector = embed(query)
         result = {}
 
         for uid, limit, scope_name in scopes:
+            must_conditions = [FieldCondition(key="user_id", match=MatchValue(value=uid))]
+            should_conditions = type_filter_conditions if type_filter_conditions else None
+
             hits = get_qdrant().query_points(
                 collection_name=COLLECTION,
                 query=vector,
                 query_filter=Filter(
-                    must=[FieldCondition(key="user_id", match=MatchValue(value=uid))]
+                    must=must_conditions,
+                    should=should_conditions,
                 ),
                 limit=limit,
                 with_payload=True,

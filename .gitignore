@@ -18,6 +18,7 @@ hooks/logs/
 setup/.local-state.json
 setup/bootstrap.log
 
+!tests/
 # Adicione aqui outras pastas quando quiser versionar:
 # !workspace/
 # !plugins/
