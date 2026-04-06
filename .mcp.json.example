@@ -5,10 +5,22 @@
       "command": "uv",
       "args": ["run", "--directory", "mcp/github-server", "python", "server.py"],
       "env": {
-        "GITHUB_APP_ID": "<your-github-app-id>",
-        "GITHUB_APP_PEM_PATH": "<path-to-your-pem-file>",
-        "GITHUB_APP_INSTALLATION_ID": "<your-installation-id>",
-        "GITHUB_APP_SLUG": "<your-app-slug>"
+        "GITHUB_APP_ORACLE_ID": "${GITHUB_APP_ORACLE_ID}",
+        "GITHUB_APP_ORACLE_PEM_PATH": "${GITHUB_APP_ORACLE_PEM_PATH}",
+        "GITHUB_APP_ORACLE_INSTALLATION_ID": "${GITHUB_APP_ORACLE_INSTALLATION_ID}",
+        "GITHUB_APP_ORACLE_SLUG": "${GITHUB_APP_ORACLE_SLUG}",
+        "GITHUB_APP_NEO_ID": "${GITHUB_APP_NEO_ID}",
+        "GITHUB_APP_NEO_PEM_PATH": "${GITHUB_APP_NEO_PEM_PATH}",
+        "GITHUB_APP_NEO_INSTALLATION_ID": "${GITHUB_APP_NEO_INSTALLATION_ID}",
+        "GITHUB_APP_NEO_SLUG": "${GITHUB_APP_NEO_SLUG}",
+        "GITHUB_APP_THE_ARCHITECT_ID": "${GITHUB_APP_THE_ARCHITECT_ID}",
+        "GITHUB_APP_THE_ARCHITECT_PEM_PATH": "${GITHUB_APP_THE_ARCHITECT_PEM_PATH}",
+        "GITHUB_APP_THE_ARCHITECT_INSTALLATION_ID": "${GITHUB_APP_THE_ARCHITECT_INSTALLATION_ID}",
+        "GITHUB_APP_THE_ARCHITECT_SLUG": "${GITHUB_APP_THE_ARCHITECT_SLUG}",
+        "GITHUB_APP_ID": "${GITHUB_APP_ID}",
+        "GITHUB_APP_PEM_PATH": "${GITHUB_APP_PEM_PATH}",
+        "GITHUB_APP_INSTALLATION_ID": "${GITHUB_APP_INSTALLATION_ID}",
+        "GITHUB_APP_SLUG": "${GITHUB_APP_SLUG}"
       }
     },
     "mem0": {
@@ -30,8 +42,8 @@
       "args": ["mcp-servers/langfuse/index.js"],
       "env": {
         "LANGFUSE_HOST": "http://localhost:3000",
-        "LANGFUSE_PUBLIC_KEY": "<your-langfuse-public-key>",
-        "LANGFUSE_SECRET_KEY": "<your-langfuse-secret-key>"
+        "LANGFUSE_PUBLIC_KEY": "${LANGFUSE_PUBLIC_KEY}",
+        "LANGFUSE_SECRET_KEY": "${LANGFUSE_SECRET_KEY}"
       }
     },
     "excalidraw": {

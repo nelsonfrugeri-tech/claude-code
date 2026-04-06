@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- **Multi-agent GitHub auth** — `_get_installation_token` now looks up per-agent env vars (`GITHUB_APP_{AGENT}_*`) with fallback to generic vars. Oracle, Neo, and The Architect registered. All secrets moved to `${ENV_VAR}` references in `.mcp.json` — zero hardcoded credentials.
+
 ### Added
 - **3 enforcement hooks** (#39, #40, #41) — deterministic quality gates for the dev pipeline
   - `hooks/require-qa-evidence.sh` — PreToolUse: blocks `mcp__github__github_create_pr` if no QA evidence file (qa-report.md, test-results.*, etc.) exists
