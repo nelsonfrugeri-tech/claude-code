@@ -611,7 +611,55 @@ WHY: Research depth should match decision impact.
 
 ---
 
-## 8. Quando Parar de Pesquisar
+## 8. Protocolo de Verificação de Segurança de Dependências
+
+**Requisito zero — executar ANTES de instalar qualquer dependência.**
+
+### Passos Obrigatórios
+
+1. **Buscar versão LTS/stable mais recente** — nunca usar versão de training data
+   - PyPI: `https://pypi.org/project/<name>/`
+   - npm: `https://www.npmjs.com/package/<name>`
+   - Cargo: `https://crates.io/crates/<name>`
+
+2. **Verificar segurança da versão**
+   - NVD: `https://nvd.nist.gov/vuln/search?query=<package>`
+   - GitHub Advisories: `https://github.com/advisories?query=<package>`
+   - Snyk: `https://security.snyk.io/package/<ecosystem>/<package>`
+   - Se tem CVEs não patcheados → **não instalar**, buscar versão segura
+
+3. **Verificar se a lib é mantida**
+   - Último release há menos de 12 meses
+   - Issues respondidas (não apenas abertas)
+   - Maintainer ativo (commits recentes)
+
+4. **Após instalar — auditoria**
+   ```bash
+   pip-audit          # Python
+   npm audit           # Node.js
+   cargo audit         # Rust
+   ```
+
+### Red Flags (não instalar)
+- Sem release há >12 meses
+- CVEs conhecidos sem patch disponível
+- Único maintainer que parou de contribuir
+- Download count muito baixo (<1K/semana no PyPI, <100/semana no npm)
+- Licença incompatível com o projeto
+
+### Fontes de Segurança
+| Fonte | URL | O que cobre |
+|-------|-----|-------------|
+| NVD | nvd.nist.gov | CVEs oficiais |
+| GitHub Advisories | github.com/advisories | Alertas por ecossistema |
+| Snyk | security.snyk.io | Vulnerabilidades + fix suggestions |
+| OSV | osv.dev | Open Source Vulnerabilities (Google) |
+| pip-audit | pypi.org/project/pip-audit | Auditoria local Python |
+| npm audit | docs.npmjs.com/cli/audit | Auditoria local Node.js |
+
+---
+
+## 9. Quando Parar de Pesquisar
 
 Pesquisa sem limites é desperdício. Aplique estas regras de parada:
 

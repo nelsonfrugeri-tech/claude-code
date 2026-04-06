@@ -598,7 +598,9 @@ API_PORT=8001
 
 ---
 
-## 7. Instalação de Dependências by Ecosystem
+## 7. Instalação de Dependências por Ecossistema
+
+> **Pré-requisito obrigatório:** Antes de instalar qualquer dependência, executar o protocolo de verificação de segurança da skill `research` (seção 8). Verificar CVEs, manutenção da lib, e versão LTS/stable.
 
 ### Python (Poetry)
 
