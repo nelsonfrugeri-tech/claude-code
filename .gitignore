@@ -8,6 +8,7 @@
 !LICENSE
 !CHANGELOG.md
 !.mcp.json.example
+!settings.json.example
 !agents/
 !skills/
 !hooks/

@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **`settings.json` hooks registration** (#42) — enforcement hooks wired into harness: `require-qa-evidence.sh` on `PreToolUse(mcp__github__github_create_pr)`, `verify-tests-passed.sh` on `Stop`, `validate-task-completion.sh` on `TaskCompleted`. Deny rules added: `git push origin main`, `git push --force*`, `rm -rf *`.
+
 ### Changed
 - **Multi-agent GitHub auth** — `_get_installation_token` now looks up per-agent env vars (`GITHUB_APP_{AGENT}_*`) with fallback to generic vars. Oracle, Neo, and The Architect registered. All secrets moved to `${ENV_VAR}` references in `.mcp.json` — zero hardcoded credentials.
 
