@@ -8,14 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added — Zeroone Agent
-- **`zeroone` agent** (#63) — ecosystem controller agent. Detects drift between the zeroone repo and `~/.claude/` deployed agents/skills, syncs agents/skills to `~/.claude/`, sets up project workspaces with Qdrant collections, and checks memory infrastructure health (Qdrant + Ollama).
+- **`zeroone` agent** (#63) — ecosystem controller agent with scripts (status.sh, sync.sh, setup-project.sh). Detects drift between repo and `~/.claude/`, syncs agents/skills, sets up project workspaces with Qdrant collections, checks infra health.
 
 ### Added — Workspaces
-- **`workspaces/` directory** (#63) — per-project knowledge base convention. Each project gets a `workspaces/{project}/` directory with `context.md`, `decisions.md`, and `runbook.md`. Agents discover workspaces via `ZEROONE_HOME` env var.
+- **`workspaces/` directory** (#63) — per-project knowledge base convention. Each project gets `context.md`, `decisions.md`, and `runbook.md`. Agents discover via `ZEROONE_HOME` env var.
 
 ### Added — Infra
-- **`infra/docker-compose.yml`** (#63) — Qdrant v1.17.1 service with persistent volume, health check, and ports 6333/6334. Ollama runs native (not containerized) per Local AI Performance principle.
-- **`infra/README.md`** (#63) — infrastructure startup guide: Qdrant via compose, Ollama native, `nomic-embed-text` model requirement, port reference, health check, and troubleshooting.
+- **`infra/docker-compose.yml`** (#63) — Qdrant v1.17.1 with persistent volume and health check.
+- **`infra/README.md`** (#63) — infrastructure startup guide.
+
+### Changed
+- **CLAUDE.md** — stripped company-specific sections, keeping only 5 universal foundational principles (#58). Reduced from 202 to 68 lines
 
 ## [0.4.0] - 2026-04-10
 
