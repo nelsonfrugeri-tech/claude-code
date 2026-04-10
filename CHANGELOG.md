@@ -7,39 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-### Fixed
-- **Hook JSON schema for Stop and TaskCompleted events** (#50) — `verify-tests-passed.sh` and `validate-task-completion.sh` were using the PreToolUse schema (`hookSpecificOutput.permissionDecision`), which is invalid for Stop/TaskCompleted events and caused "JSON validation failed" in the Claude Code runtime. Both hooks now use the correct schema: `{"decision": "approve|block", "reason": "..."}`.
-- **qa-report.md in hooks/ bypassing enforcement** (#50) — `verify-tests-passed.sh`, `validate-task-completion.sh`, and `require-qa-evidence.sh` all used `find` without excluding the `hooks/` directory. The `hooks/qa-report.md` historical file always satisfied the check, making it a no-op. All three hooks now add `-not -path "*/hooks/*"` to the find command. The stale `hooks/qa-report.md` file is deleted.
-- **pr-docs-check.sh diff against wrong HEAD** (#52) — The hook used `git diff --name-only "$BASE"...HEAD`, which evaluates HEAD of the running branch (e.g., main), producing an empty diff. The hook now extracts the `--head` branch from the `gh pr create` command and diffs `"$BASE"..origin/$HEAD_BRANCH`. Falls back to the previous behavior if `--head` is not present.
-- **GitHub MCP PEM path unexpanded env var detection** (#51) — `server.py` `_get_installation_token` now detects when `pem_path` is a literal unexpanded shell variable (starts with `${` or `$`) and raises a clear error message explaining the cause and how to fix it, instead of a confusing "PEM file not found" error.
+## [0.3.0] - 2026-04-10
 
-### Added
-- **`settings.json` hooks registration** (#42) — enforcement hooks wired into harness: `require-qa-evidence.sh` on `PreToolUse(mcp__github__github_create_pr)`, `verify-tests-passed.sh` on `Stop`, `validate-task-completion.sh` on `TaskCompleted`. Deny rules added: `git push origin main`, `git push --force*`, `rm -rf *`.
+### Highlights
 
-### Changed
-- **Multi-agent GitHub auth** — `_get_installation_token` now looks up per-agent env vars (`GITHUB_APP_{AGENT}_*`) with fallback to generic vars. Oracle, Neo, and The Architect registered. All secrets moved to `${ENV_VAR}` references in `.mcp.json` — zero hardcoded credentials.
+Complete ecosystem overhaul: 9 legacy agents replaced by 7 Matrix Personas, knowledge base expanded from 8 to 16 skills,
+three-level scoped memory system, Oracle as single entry point for all feature work, multi-agent GitHub auth,
+and deterministic enforcement hooks for the dev pipeline.
 
-### Added
-- **3 enforcement hooks** (#39, #40, #41) — deterministic quality gates for the dev pipeline
-  - `hooks/require-qa-evidence.sh` — PreToolUse: blocks `mcp__github__github_create_pr` if no QA evidence file (qa-report.md, test-results.*, etc.) exists
-  - `hooks/verify-tests-passed.sh` — Stop: blocks agent from stopping without test evidence (output files or test refs in git log); supports pytest, npm test, cargo test, go test, jest, rspec, phpunit
-  - `hooks/validate-task-completion.sh` — TaskCompleted: blocks task completion if no commits ahead of base branch or no test evidence file found
-- **`reviewer` agent** (#43) — dedicated read-only code reviewer with `disallowedTools: [Write, Edit]` enforcement. Reviews code quality, security (OWASP Top 10), patterns; posts findings via GitHub MCP comments with severity classification (`[BLOCKER]`, `[MAJOR]`, `[MINOR]`, `[NIT]`). Memory scoping consistent with all other agents.
+### Added — Agents
+- **7 Matrix Persona agents** (#23) — replaced 9 legacy agents (founds/experts) with 6 persona-based agents sharing the same skills: the_architect, neo, trinity, morpheus, oracle, cypher
+- **`reviewer` agent** (#43) — dedicated read-only code reviewer with `disallowedTools: [Write, Edit]` enforcement. Reviews code quality, security (OWASP Top 10), patterns; posts findings via GitHub MCP comments with severity classification (`[BLOCKER]`, `[MAJOR]`, `[MINOR]`, `[NIT]`)
 
-### Changed
-- **Oracle as entry point** (#27) — oracle.md rewritten as single entry point for all feature work: 6-phase orchestration flow (discovery, planning, distribution, monitoring, review orchestration, merge), communication protocol with SendMessage patterns, delegation template, explicit boundaries (no code, no review, no merge without user confirmation). README updated with orchestration flow diagram.
-
-### Added
-- **Three-level scoped memory system** (#25) — adapted from bike-shop Memory System v0.3.0
-  - Three scopes: `team` (global), `team:{project}` (project), `{agent}:{project}` (agent)
-  - 5 primary memory types: `decision`, `fact`, `preference`, `procedure`, `outcome`
-  - New `mem0_recall_context` tool — queries all 3 scopes in one call with retrieval budget (~13 items)
-  - Save protocol: classify scope → classify type → check duplicates → store/update
-  - Memory hygiene criteria with per-scope cleanup protocol
-  - All 6 agents updated with Memory Scoping section
-  - `meta-orchestration` skill rewritten with three-level scoping, retrieval flow, and save protocol
-  - Reference docs updated: `knowledge-structure.md`, `hygiene.md`
-- **`dev-pipeline` skill** (#26) — mandatory delivery pipeline: CODE → SELF-JUDGE → QA → PR → REVIEW → FIX loop. 8 reference files covering stages, transitions, self-judge checklist, QA protocol, review handoff, and templates
+### Added — Skills
 - **7 new state-of-the-art skills** (#24)
   - `sre-observability` — OpenTelemetry, SLOs, incident response, dashboards
   - `local-infrastructure` — Docker, compose, databases, service orchestration
@@ -48,11 +28,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   - `research` — search strategies, source validation, synthesis, debate frameworks
   - `meta-orchestration` — task routing, agent coordination, Mem0 management
   - `qa` — E2E testing, Definition of Done, environment setup/teardown
-- **Language Rules** foundational principle in CLAUDE.md — strict language separation by context
+- **`dev-pipeline` skill** (#26) — mandatory delivery pipeline: CODE → SELF-JUDGE → QA → PR → REVIEW → FIX loop. 8 reference files covering stages, transitions, self-judge checklist, QA protocol, review handoff, and templates
+
+### Added — Memory
+- **Three-level scoped memory system** (#25) — adapted from bike-shop Memory System v0.3.0
+  - Three scopes: `team` (global), `team:{project}` (project), `{agent}:{project}` (agent)
+  - 5 primary memory types: `decision`, `fact`, `preference`, `procedure`, `outcome`
+  - New `mem0_recall_context` tool — queries all 3 scopes in one call with retrieval budget (~13 items)
+  - Save protocol: classify scope → classify type → check duplicates → store/update
+  - Memory hygiene criteria with per-scope cleanup protocol
+  - All agents updated with Memory Scoping section
+  - `meta-orchestration` skill rewritten with three-level scoping, retrieval flow, and save protocol
+
+### Added — Orchestration
+- **Oracle as single entry point** (#27) — 6-phase orchestration flow (discovery, planning, distribution, monitoring, review orchestration, merge), communication protocol with SendMessage patterns, delegation template, explicit boundaries (no code, no review, no merge without user confirmation)
+
+### Added — Auth & Security
+- **Multi-agent GitHub auth** — per-agent env vars (`GITHUB_APP_{AGENT}_*`) with fallback to generic vars. Oracle, Neo, and The Architect registered. All secrets moved to `${ENV_VAR}` references in `.mcp.json` — zero hardcoded credentials
+
+### Added — Enforcement Hooks
+- **`settings.json` hooks registration** (#42) — enforcement hooks wired into harness: `require-qa-evidence.sh` on `PreToolUse(mcp__github__github_create_pr)`, `verify-tests-passed.sh` on `Stop`, `validate-task-completion.sh` on `TaskCompleted`. Deny rules added: `git push origin main`, `git push --force*`, `rm -rf *`
+- **3 enforcement hooks** (#39, #40, #41) — deterministic quality gates for the dev pipeline
+  - `hooks/require-qa-evidence.sh` — PreToolUse: blocks `mcp__github__github_create_pr` if no QA evidence file exists
+  - `hooks/verify-tests-passed.sh` — Stop: blocks agent from stopping without test evidence; supports pytest, npm test, cargo test, go test, jest, rspec, phpunit
+  - `hooks/validate-task-completion.sh` — TaskCompleted: blocks task completion if no commits ahead of base branch or no test evidence found
+
+### Added — Standards
+- **Language Rules** foundational principle in CLAUDE.md — strict language separation by context (pt-BR for skills/agents prose, English for code/docs/README)
 
 ### Changed
-- **All 15 skills** now declare "Skill global — carregada automaticamente por todos os agents"
-  - 9 skills updated: arch-py, arch-ts, ai-engineer, review-py, review-ts, product-manager, github, frontend-design, research
+- **All 16 skills** now declare "Skill global — carregada automaticamente por todos os agents" (#32)
+- **Oracle** rewritten from ecosystem manager to single entry point for all feature work (#27)
+
+### Fixed
+- **Hook JSON schema for Stop and TaskCompleted events** (#50) — hooks now use the correct schema `{"decision": "approve|block", "reason": "..."}`
+- **qa-report.md in hooks/ bypassing enforcement** (#50) — all three hooks now exclude `hooks/` directory from find
+- **pr-docs-check.sh diff against wrong HEAD** (#52) — now extracts `--head` branch from the `gh pr create` command
+- **GitHub MCP PEM path unexpanded env var detection** (#51) — clear error message when `pem_path` is a literal unexpanded shell variable
+- **Worktree paths in test evidence search** — hooks now exclude worktree paths from find
+
+### Removed
+- **9 legacy agents** (#22, #23) — founds/experts architecture replaced by Matrix Personas
+- **Legacy memory-keeper hooks** (#22) — `memory-keeper-restore.sh`, `memory-keeper-save.sh`, `memory-keeper-purge.sh` fully removed
 
 ## [0.2.0] - 2026-03-31
 

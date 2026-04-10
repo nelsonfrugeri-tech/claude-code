@@ -5,13 +5,13 @@
 ### Your AI agents never forget. They research, they collaborate, they ship.
 
 [![Claude Code](https://img.shields.io/badge/Claude_Code-CLI-CC785C?style=for-the-badge&logo=anthropic&logoColor=white)](https://docs.anthropic.com/en/docs/claude-code)
-[![Agents](https://img.shields.io/badge/6_Agents-Ready-blue?style=for-the-badge)](#-agents)
+[![Agents](https://img.shields.io/badge/7_Agents-Ready-blue?style=for-the-badge)](#-agents)
 [![Skills](https://img.shields.io/badge/16_Skills-Loaded-purple?style=for-the-badge)](#-skills)
 [![Memory](https://img.shields.io/badge/Mem0-Shared_Memory-green?style=for-the-badge)](#-shared-memory-mem0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 **Turn `~/.claude` into a fully autonomous development environment.**
-**6 persona-based agents, 16 knowledge bases, shared semantic memory, and zero configuration.**
+**7 persona-based agents, 16 knowledge bases, shared semantic memory, and zero configuration.**
 
 [Features](#-features) · [Quick Start](#-quick-start) · [Agents](#-agents) · [Memory](#-shared-memory-mem0) · [Autonomy](#-autonomy--permissions) · [Hooks](#-hooks)
 
@@ -102,7 +102,7 @@ docker exec ollama ollama pull qwen3:4b
 
 ### Matrix Personas
 
-6 agents with distinct personalities. All share the same skills (loaded globally). Differentiation is personality only.
+7 agents with distinct personalities. All share the same skills (loaded globally). Differentiation is personality only.
 
 | Agent | Personality | Use case |
 |-------|------------|----------|
@@ -112,6 +112,7 @@ docker exec ollama ollama pull qwen3:4b
 | **morpheus** | Socratic, questioner, mentor. | Debates, exploration, questioning, mentoring |
 | **oracle** | Holistic, cross-project vision. Living memory. **Entry point for all feature work.** | Feature orchestration, discovery, planning, distribution, monitoring, review, merge |
 | **cypher** | Pure SRE. Numbers and tables, not essays. | Infra ops, monitoring, incident response, health checks |
+| **reviewer** | Read-only, detail-oriented code reviewer. | Code quality, security audits, PR review comments |
 
 ### Oracle Orchestration Flow
 
@@ -411,7 +412,8 @@ Enable in `settings.json`:
 │   ├── trinity.md                 #   Executor, surgical closer
 │   ├── morpheus.md                #   Socratic questioner, mentor
 │   ├── oracle.md                  #   Ecosystem manager, living memory
-│   └── cypher.md                  #   Pure SRE, numbers and tables
+│   ├── cypher.md                  #   Pure SRE, numbers and tables
+│   └── reviewer.md                #   Read-only code reviewer
 │
 ├── skills/                        # Knowledge bases (global, all agents)
 │   ├── arch-py/                   #   Python architecture
