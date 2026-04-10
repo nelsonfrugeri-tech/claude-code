@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-04-10
+
+_New phase — starting point for the next evolution of agents and skills._
+
 ## [0.3.0] - 2026-04-10
 
 ### Highlights
