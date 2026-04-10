@@ -10,6 +10,7 @@ skills:
   - environment
   - review
   - research
+  - ai-engineer
 ---
 
 # Developer — Senior Software Engineer

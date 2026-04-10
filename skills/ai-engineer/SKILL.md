@@ -1,5 +1,5 @@
 ---
-name: ai-ml
+name: ai-engineer
 description: |
   AI/ML engineering knowledge base (2026). Covers LLM integration patterns (Anthropic, OpenAI,
   Bedrock, Gemini), prompt engineering (few-shot, chain-of-thought, structured outputs), RAG
