@@ -5,13 +5,13 @@
 ### Composable AI agents. Persistent memory. One ecosystem.
 
 [![Claude Code](https://img.shields.io/badge/Claude_Code-CLI-CC785C?style=for-the-badge&logo=anthropic&logoColor=white)](https://docs.anthropic.com/en/docs/claude-code)
-[![Agents](https://img.shields.io/badge/7_Agents-Ready-blue?style=for-the-badge)](#agents)
-[![Skills](https://img.shields.io/badge/16_Skills-Composable-purple?style=for-the-badge)](#skills)
-[![Memory](https://img.shields.io/badge/Mem0-Semantic_Memory-green?style=for-the-badge)](#memory)
+[![Agents](https://img.shields.io/badge/8_Agents-Ready-blue?style=for-the-badge)](#-agents)
+[![Skills](https://img.shields.io/badge/16_Skills-Loaded-purple?style=for-the-badge)](#-skills)
+[![Memory](https://img.shields.io/badge/Mem0-Shared_Memory-green?style=for-the-badge)](#-shared-memory-mem0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-**Your `~/.claude` as a fully autonomous development environment.**
-**7 functional agents, 16 composable skills, semantic memory, zero configuration.**
+**Turn `~/.claude` into a fully autonomous development environment.**
+**8 persona-based agents, 16 knowledge bases, shared semantic memory, and zero configuration.**
 
 [Quick Start](#quick-start) · [Agents](#agents) · [Skills](#skills) · [Memory](#memory) · [Workspaces](#workspaces) · [Infrastructure](#infrastructure)
 
@@ -23,11 +23,29 @@
 
 **Zeroone** is the foundation layer for [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code). Clone it, sync it, and every project you work on gets:
 
-- **7 functional AI agents** — each with a distinct role and composable skill set
-- **16 skills** — 8 capability (methodology) + 8 knowledge (domain expertise)
-- **Semantic memory** — persistent across sessions via Qdrant + Ollama embeddings
-- **Project workspaces** — per-project knowledge bases versioned in git
-- **Ecosystem controller** — the `zeroone` agent that manages it all
+- **8 persona-based AI agents** with distinct personalities covering the full dev lifecycle
+- **Shared semantic memory** that persists across sessions and terminals (Mem0 + Qdrant)
+- **Auto mode permissions** — agents work autonomously, only stop for critical decisions
+- **PR quality hooks** — CHANGELOG and docs enforced programmatically
+- **Multi-agent coordination** — parallel work with git worktrees and Agent Teams
+
+Any project built on this foundation inherits all capabilities automatically.
+
+---
+
+## Features
+
+**Matrix Persona Agents** — 8 agents with distinct personalities (the_architect, neo, trinity, morpheus, oracle, cypher, reviewer, zeroone). Same skills, different lenses. Adversarial review flow: neo (draft) -> the_architect (judge) -> morpheus (debate).
+
+**Shared Semantic Memory** — Mem0 MCP server backed by Qdrant + Ollama. Store decisions, procedures, context. Search semantically. Persists across terminal restarts. Multiple agents share the same memory pool.
+
+**Research-First Decisions** — Every technical decision backed by current web research. Agents search the web, cross multiple sources, and cite them. Never rely on stale training data.
+
+**Full Autonomy with Guardrails** — Auto mode lets agents code, commit, create PRs, run tests — without asking. Only security-critical operations (secrets, deletions, force-push) require approval.
+
+**PR Quality Enforcement** — Hook blocks PR creation unless CHANGELOG is updated. Warns about README and API collection gaps. No documentation debt.
+
+**Parallel Execution** — Git worktrees isolate filesystem per agent. Agent Teams coordinate via shared task lists and messaging. Mem0 provides persistent cross-agent context.
 
 ---
 
@@ -59,24 +77,54 @@ claude --agent ai-engineer   # LLM, RAG, data pipelines
 | Tool | Purpose |
 |------|---------|
 | [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) | `npm install -g @anthropic-ai/claude-code` |
-| [Docker](https://docker.com) | Runs Qdrant for semantic memory |
-| [Ollama](https://ollama.com) | Local embeddings (nomic-embed-text) — runs native, not containerized |
+| [Docker](https://docker.com) | Runs Qdrant + Ollama for shared memory |
+| Node.js 18+ | MCP server runtime |
+
+### Configure MCP servers
+
+```bash
+# Copy the example and fill in your credentials
+cp .mcp.json.example .mcp.json
+
+# Edit .mcp.json and set your values:
+# - GitHub: GITHUB_APP_ID, GITHUB_APP_PEM_PATH, GITHUB_APP_INSTALLATION_ID, GITHUB_APP_SLUG
+# - Mem0: defaults work for local Docker (localhost:6333, localhost:11434)
+# - Langfuse: LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY (optional)
+```
+
+See [`.mcp.json.example`](.mcp.json.example) for all available env vars.
+
+### Start memory infrastructure
+
+```bash
+# Start Qdrant (from the zeroone repo)
+cd infra && docker compose up -d
+
+# Start Ollama natively (not containerized — required for GPU acceleration)
+ollama serve
+
+# Pull the embedding model
+ollama pull nomic-embed-text
+```
+
+See [`infra/README.md`](infra/README.md) for full setup details, port reference, and troubleshooting.
 
 ---
 
 ## Agents
 
-7 functional agents. Each composes a specific set of skills via `skills:` frontmatter.
+8 agents with distinct personalities. All share the same skills (loaded globally). Differentiation is personality only.
 
-| Agent | Model | Role | Skills |
-|-------|-------|------|--------|
-| **architect** | opus | System design, ADRs, C4 diagrams, trade-offs | design, review, research, api-design, security |
-| **developer** | sonnet | Features, bugs, refactoring, environments, tests | implement, test, environment, review, research, ai-engineer |
-| **ai-engineer** | sonnet | LLM integration, RAG, embeddings, data pipelines, ML infra | ai-engineer, implement, test, environment, review, research |
-| **tech_pm** | sonnet | User stories, backlog, roadmap, stakeholder communication | manage, review, research |
-| **qa** | sonnet | Testing strategy, E2E, integration, performance, validation | test, environment, review, research |
-| **sre** | sonnet | Observability, monitoring, SLOs, incidents, alerting | operate, review, research, observability, security |
-| **zeroone** | sonnet | Ecosystem controller — sync, status, setup | environment, operate |
+| Agent | Personality | Use case |
+|-------|------------|----------|
+| **the_architect** | Perfectionist, visionary, 5-year horizon. No shortcuts. | Final design, critical decisions, quality gate, judge |
+| **neo** | Pragmatic, fast, MVP-first. YAGNI. | First draft, MVPs, rapid iteration, discovery |
+| **trinity** | Executor, surgical, closer. | Precise execution, finalize work, delivery |
+| **morpheus** | Socratic, questioner, mentor. | Debates, exploration, questioning, mentoring |
+| **oracle** | Holistic, cross-project vision. Living memory. **Entry point for all feature work.** | Feature orchestration, discovery, planning, distribution, monitoring, review, merge |
+| **cypher** | Pure SRE. Numbers and tables, not essays. | Infra ops, monitoring, incident response, health checks |
+| **reviewer** | Read-only, detail-oriented code reviewer. | Code quality, security audits, PR review comments |
+| **zeroone** | Ecosystem controller. Detects drift, syncs, manages infra. | Sync agents/skills to ~/.claude, setup project workspaces, check infra health |
 
 ### Zeroone Controller
 
@@ -199,15 +247,23 @@ bash scripts/status.sh
 ## Project Structure
 
 ```
-zeroone/
-├── agents/                     # Agent definitions (persona + skills)
-│   ├── architect.md
-│   ├── developer.md
-│   ├── ai-engineer.md
-│   ├── tech_pm.md
-│   ├── qa.md
-│   ├── sre.md
-│   └── zeroone.md
+~/.claude/
+├── agents/                        # Matrix Personas (flat directory)
+│   ├── the_architect.md           #   Perfectionist, quality gate, judge
+│   ├── neo.md                     #   Pragmatic, MVP-first, fast mover
+│   ├── trinity.md                 #   Executor, surgical closer
+│   ├── morpheus.md                #   Socratic questioner, mentor
+│   ├── oracle.md                  #   Ecosystem manager, living memory
+│   ├── cypher.md                  #   Pure SRE, numbers and tables
+│   ├── reviewer.md                #   Read-only code reviewer
+│   └── zeroone.md                 #   Ecosystem controller (sync, setup, status)
+│
+├── workspaces/                    # Per-project knowledge bases
+│   └── {project}/                 #   context.md, decisions.md, runbook.md
+│
+├── infra/                         # Memory infrastructure
+│   ├── docker-compose.yml         #   Qdrant v1.17.1 (persistent volume)
+│   └── README.md                  #   Startup guide, ports, troubleshooting
 │
 ├── skills/                     # 8 capability + 8 knowledge
 │   ├── review/                 ├── python/
